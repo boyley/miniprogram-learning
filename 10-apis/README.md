@@ -29,7 +29,7 @@ wx.someApi({
 | 能力 | H5 / 浏览器 | 小程序 |
 |---|---|---|
 | 弹窗 | `alert` / `confirm` | `wx.showModal` / `showToast` |
-| 页面跳转 | `location.href` / router | `wx.navigateTo`（[08-routing-lifecycle](08-routing-lifecycle.md)） |
+| 页面跳转 | `location.href` / router | `wx.navigateTo`（[08-routing-lifecycle](../08-routing-lifecycle/)） |
 | 定位 | `navigator.geolocation` | `wx.getLocation`（需授权+配置） |
 | 选文件/拍照 | `<input type=file>` | `wx.chooseMedia` / `chooseImage` |
 | 剪贴板 | `navigator.clipboard` | `wx.setClipboardData` |
@@ -47,7 +47,7 @@ wx.someApi({
                               用户在设置页打开后 ────┘→ 再调用能力 API
 ```
 
-关键点：**不要一上来就 `wx.authorize` 轰炸用户**；能力 API（如 `wx.getLocation`）首次调用本身就会触发授权框。真正需要 `getSetting`/`openSetting` 的场景，是**判断是否曾被拒绝**、以及**拒绝后的补救引导**。登录/`getUserProfile`/手机号等授权细节见 [11-login-auth](11-login-auth.md)。
+关键点：**不要一上来就 `wx.authorize` 轰炸用户**；能力 API（如 `wx.getLocation`）首次调用本身就会触发授权框。真正需要 `getSetting`/`openSetting` 的场景，是**判断是否曾被拒绝**、以及**拒绝后的补救引导**。登录/`getUserProfile`/手机号等授权细节见 [11-login-auth](../11-login-auth/)。
 
 ## 💻 代码示例
 
@@ -222,12 +222,12 @@ async function useLocation() {
 
 - **统一形状**：`wx.api({ 业务参数, success, fail, complete })`；不传回调则返回 **Promise**，可 `await`。
 - **同步 API** 以 `Sync` 结尾（`getSystemInfoSync`），直接返回值、可能抛异常。
-- **界面交互**：`showToast`（轻提示）/`showModal`（确认框）/`showLoading`+`hideLoading`（成对）/`showActionSheet`。跳转看 [08-routing-lifecycle](08-routing-lifecycle.md)。
+- **界面交互**：`showToast`（轻提示）/`showModal`（确认框）/`showLoading`+`hideLoading`（成对）/`showActionSheet`。跳转看 [08-routing-lifecycle](../08-routing-lifecycle/)。
 - **设备**：`getLocation`（授权+配置）、`scanCode`、`makePhoneCall`、`vibrateShort`、`getSystemInfo(Sync)`。
 - **媒体**：`chooseMedia`（新，图+视频）/`chooseImage`（旧）/`previewImage`/`saveImageToPhotosAlbum`；拿到的是**临时路径**，要上传后端才持久。
 - **分享**：`onShareAppMessage`（转发好友）/`onShareTimeline`（朋友圈）是**页面钩子**，不是 `wx.*`。
 - **剪贴板** `setClipboardData`；文件长期存用 `getFileSystemManager`（有配额）。
-- **授权三步**：`getSetting` 查 → 首次调能力 API 自动弹框 → **拒绝后 `openSetting`** 引导，不能反复弹。授权登录细节见 [11-login-auth](11-login-auth.md)。
+- **授权三步**：`getSetting` 查 → 首次调能力 API 自动弹框 → **拒绝后 `openSetting`** 引导，不能反复弹。授权登录细节见 [11-login-auth](../11-login-auth/)。
 
 ## ⚠️ 易错点 / 最佳实践
 
@@ -237,5 +237,5 @@ async function useLocation() {
 - ⚠️ **定位/相册等要在 `app.json` 声明用途**（`permission.desc`、`requiredPrivateInfos`），漏了新版基础库直接调用失败。
 - ⚠️ **`chooseImage`/`chooseMedia` 拿到的是临时文件路径**，小程序重启后失效；要么立刻上传后端，要么 `saveFile` 持久化。
 - ✅ **优先用新 API**：`chooseMedia` 替代 `chooseImage`、`getDeviceInfo`/`getWindowInfo` 替代重型的 `getSystemInfo`。
-- ✅ **封装一层 `promisify` 或统一 `request` 工具**，把 `showLoading`、错误 `showToast` 收口，页面代码更干净（配合 [09-network-storage](09-network-storage.md) 的请求封装）。
-- 🔗 授权登录（`wx.login`→code→openid、`getUserProfile`、手机号）→ [11-login-auth](11-login-auth.md)；官方 API 索引 → <https://developers.weixin.qq.com/miniprogram/dev/api/>。
+- ✅ **封装一层 `promisify` 或统一 `request` 工具**，把 `showLoading`、错误 `showToast` 收口，页面代码更干净（配合 [09-network-storage](../09-network-storage/) 的请求封装）。
+- 🔗 授权登录（`wx.login`→code→openid、`getUserProfile`、手机号）→ [11-login-auth](../11-login-auth/)；官方 API 索引 → <https://developers.weixin.qq.com/miniprogram/dev/api/>。

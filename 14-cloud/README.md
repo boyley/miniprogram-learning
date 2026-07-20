@@ -8,7 +8,7 @@
 
 ## 📖 核心概念 / 讲解
 
-**云开发是什么。** 传统小程序要联网就得**自己有一套后端**：买服务器、备案域名、配 HTTPS、写接口、装数据库、做用户登录（见 [11-login-auth](11-login-auth.md)）——对个人和小团队门槛不低。**云开发（Cloud Base）** 是微信把这一整套后端能力托管到云上，小程序里 `wx.cloud.*` 直接调用，**无需服务器、无需域名备案、无需自己实现登录**。这就是业界说的 **Serverless / BaaS**：你不管服务器在哪、怎么扩容，只管写逻辑。
+**云开发是什么。** 传统小程序要联网就得**自己有一套后端**：买服务器、备案域名、配 HTTPS、写接口、装数据库、做用户登录（见 [11-login-auth](../11-login-auth/)）——对个人和小团队门槛不低。**云开发（Cloud Base）** 是微信把这一整套后端能力托管到云上，小程序里 `wx.cloud.*` 直接调用，**无需服务器、无需域名备案、无需自己实现登录**。这就是业界说的 **Serverless / BaaS**：你不管服务器在哪、怎么扩容，只管写逻辑。
 
 **三大件。** 云开发主要提供三块能力，覆盖一个后端的核心需求：
 
@@ -34,7 +34,7 @@ App({
 
 **★ 云函数 Cloud Function（最重要）。** 一段跑在**云端**的 Node.js 代码，小程序端用 `wx.cloud.callFunction` 触发。两大价值：
 
-- **天然免登录拿 `openid`**：云函数里 `cloud.getWXContext().OPENID` 直接拿到当前用户的 openid，**微信自动完成鉴权**，不用像传统方式那样 `wx.login` → 换 code → 请求自己的服务器换 openid（对比 [11-login-auth](11-login-auth.md) 的 code2session 流程，这里被微信包办了）。
+- **天然免登录拿 `openid`**：云函数里 `cloud.getWXContext().OPENID` 直接拿到当前用户的 openid，**微信自动完成鉴权**，不用像传统方式那样 `wx.login` → 换 code → 请求自己的服务器换 openid（对比 [11-login-auth](../11-login-auth/) 的 code2session 流程，这里被微信包办了）。
 - **敏感逻辑不暴露给前端**：小程序端代码是可被反编译看到的，密钥、扣款、判分、审核等逻辑必须放服务器——云函数就是这个"服务器"。它还能用**管理员权限**绕过数据库的前端权限限制去读写全表。
 
 **★ 云数据库 Cloud Database。** **文档型数据库**（类 MongoDB）：数据是一条条 JSON 文档，放在**集合（collection）** 里，不像 MySQL 那样先建表定字段。链式 API：`db.collection('todos').where({done:false}).get()`。关键是**权限控制**——每条记录有个隐藏字段 `_openid`（创建者），在控制台可设"仅创建者可读写 / 所有人可读 / 仅管理端"等模式。**小程序端可直接读写数据库**（受权限约束，方便但只适合简单场景）；复杂/敏感操作走**云函数**（管理员权限，不受前端权限限制）。
@@ -48,7 +48,7 @@ App({
 | ✅ 优点 | **免运维**（不管服务器/扩容/备案）、**开发快**（三行代码搞定后端）、**和微信登录无缝**（云函数自动拿 openid）、**免费额度**够小项目起步 |
 | ⚠️ 缺点 | **绑定微信生态**（换平台/做 App 不通用）、**复杂业务/大规模受限**（文档型 DB 不擅长复杂关联查询、事务弱）、**成本**（用量上去后按调用/存储/流量计费，可能比自建贵）、**冷启动**（云函数首次调用有延迟） |
 
-**对比传统后端（怎么选）。** 云开发是**免搭后端的 BaaS**，个人项目、原型、Demo、中小项目**首选**——省掉一整套后端和登录鉴权（[11-login-auth](11-login-auth.md)）。而**正式、复杂、需要跨端（也要做 App/H5）、大规模或已有后端团队**的项目，仍常用**自建后端**（`wx.request` 调自己的接口，见 [09-network-storage](09-network-storage.md)），自主可控、不锁死平台。两者也可混用（部分走云开发、部分走自建）。
+**对比传统后端（怎么选）。** 云开发是**免搭后端的 BaaS**，个人项目、原型、Demo、中小项目**首选**——省掉一整套后端和登录鉴权（[11-login-auth](../11-login-auth/)）。而**正式、复杂、需要跨端（也要做 App/H5）、大规模或已有后端团队**的项目，仍常用**自建后端**（`wx.request` 调自己的接口，见 [09-network-storage](../09-network-storage/)），自主可控、不锁死平台。两者也可混用（部分走云开发、部分走自建）。
 
 ## 💻 代码示例
 
@@ -145,7 +145,7 @@ Page({
 - **★ 云数据库**：文档型（类 MongoDB），`db.collection().where().get()`；隐藏字段 `_openid` 做**权限控制**；前端可直接读写（受限），复杂操作走云函数。
 - **★ 云存储**：`uploadFile` 返回 **`fileID`**，可**直接当 `<image src>`**；`downloadFile` / `getTempFileURL` 取文件。
 - **优**：免运维、快、和微信登录无缝、有免费额度。**缺**：绑死微信生态、复杂/大规模受限、用量大成本高、冷启动。
-- 选型：个人/原型/中小项目 → **云开发**；正式/复杂/跨端/已有后端 → **自建后端**（[09-network-storage](09-network-storage.md)、[11-login-auth](11-login-auth.md)），也可混用。
+- 选型：个人/原型/中小项目 → **云开发**；正式/复杂/跨端/已有后端 → **自建后端**（[09-network-storage](../09-network-storage/)、[11-login-auth](../11-login-auth/)），也可混用。
 
 ## ⚠️ 易错点 / 最佳实践
 
@@ -154,6 +154,6 @@ Page({
 - ⚠️ **`fileID` 不是普通 URL**——它是 `cloud://` 协议，能直接给 `image`，但要给外部/浏览器用需 `wx.cloud.getTempFileURL` 换 https 临时链接。
 - ⚠️ **云函数改了要"上传并部署"才生效**——它跑在云端，不是本地热更新；`package.json` 里的依赖也要一起部署。
 - ⚠️ **文档型 ≠ 关系型**——没有 JOIN、事务弱，复杂关联查询会别扭；数据模型设计上倾向"冗余/内嵌"而非多表关联。
-- ✅ **免登录换 openid 用云函数最省事**：省掉 `wx.login` → code2session → 自建服务器那套（对比 [11-login-auth](11-login-auth.md)）。
+- ✅ **免登录换 openid 用云函数最省事**：省掉 `wx.login` → code2session → 自建服务器那套（对比 [11-login-auth](../11-login-auth/)）。
 - ✅ **关注免费额度与计费**：调用次数、数据库读写、存储/CDN 流量都计量，上线前估算用量，避免超额扣费。
-- 🔗 深入：官方云开发文档 → <https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/getting-started.html>；不用云开发时的联网与登录 → [09-network-storage](09-network-storage.md)、[11-login-auth](11-login-auth.md)。
+- 🔗 深入：官方云开发文档 → <https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/getting-started.html>；不用云开发时的联网与登录 → [09-network-storage](../09-network-storage/)、[11-login-auth](../11-login-auth/)。

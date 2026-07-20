@@ -57,7 +57,7 @@ Page（每个页面 `xxx.js` 一份）——顺序是记忆重点：
 
 > 关键区别：`onLoad`/`onReady` 一个页面**只跑一次**；`onShow`/`onHide` 随**切换来回触发**。所以"每次进页面都要刷新的逻辑放 `onShow`，一次性初始化放 `onLoad`"。
 
-**组件生命周期**是另一套（`lifetimes: { attached, ready, detached }` + `pageLifetimes`），不叫 `onLoad`，一句话记：组件用 `attached`≈页面 `onLoad`，详见 [07-component.md](07-component.md)。
+**组件生命周期**是另一套（`lifetimes: { attached, ready, detached }` + `pageLifetimes`），不叫 `onLoad`，一句话记：组件用 `attached`≈页面 `onLoad`，详见 [07-component.md](../07-component/)。
 
 **页面额外钩子（交互相关，需在页面 json 配置或本就支持）：**
 
@@ -177,4 +177,4 @@ onConfirm() {
 - ✅ **传中文/URL/JSON 一律 `encodeURIComponent` 编码**，接收端解码，避免 `&`/`?` 截断 query。
 - ✅ **`onUnload` 里清理**：清 `setInterval`/`setTimeout`、`wx.offXxx` 取消事件监听，防止内存泄漏。
 - ✅ **`onPullDownRefresh` 记得 `wx.stopPullDownRefresh()`** 收起下拉圈，否则一直转。
-- 🔗 相关：逻辑层与 setData → [01-overview-architecture.md](01-overview-architecture.md)；组件生命周期 → [07-component.md](07-component.md)；官方路由文档 → <https://developers.weixin.qq.com/miniprogram/dev/framework/app-service/route.html>。
+- 🔗 相关：逻辑层与 setData → [01-overview-architecture.md](../01-overview-architecture/)；组件生命周期 → [07-component.md](../07-component/)；官方路由文档 → <https://developers.weixin.qq.com/miniprogram/dev/framework/app-service/route.html>。

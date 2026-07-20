@@ -46,7 +46,7 @@
 | **审核版** | **提交审核**后进入 | 1 个 | 微信审核团队 | 官方审核中的快照 |
 | **线上版**（Release） | 审核通过后**点发布** | 1 个 | **全体微信用户** | 正式对外服务的版本 |
 
-> 对比 Web 发布：H5 是 `git push` → CI 构建 → 部署，几分钟自己说了算；小程序多了**人工审核**这道关，且发布节奏受平台约束——这是"提审上架"和"部署 URL"的本质差别（见 [01-overview-architecture](01-overview-architecture.md)）。
+> 对比 Web 发布：H5 是 `git push` → CI 构建 → 部署，几分钟自己说了算；小程序多了**人工审核**这道关，且发布节奏受平台约束——这是"提审上架"和"部署 URL"的本质差别（见 [01-overview-architecture](../01-overview-architecture/)）。
 
 **★ 常见拒审原因（实战血泪，提审前逐条自查）。** 审核被驳回极常见，会附一条驳回理由。高频原因：
 
@@ -61,10 +61,10 @@
 
 **上线前检查（提审前的体检）。**
 
-- **合法域名（业务域名 / request 合法域名）**：所有 `wx.request`、上传下载、WebSocket 的域名必须提前在后台"开发管理 → 服务器域名"里配置且**已备案 HTTPS**，否则线上请求全部失败（开发工具里"不校验域名"只在开发时有效，见 [09-network-storage](09-network-storage.md)）。
+- **合法域名（业务域名 / request 合法域名）**：所有 `wx.request`、上传下载、WebSocket 的域名必须提前在后台"开发管理 → 服务器域名"里配置且**已备案 HTTPS**，否则线上请求全部失败（开发工具里"不校验域名"只在开发时有效，见 [09-network-storage](../09-network-storage/)）。
 - **真机测试**：不同机型、iOS/Android、弱网下真机跑核心链路，模拟器过 ≠ 真机过。
-- **体验评分 / 性能**：用开发者工具的"体验评分"跑一遍，处理白屏时间、setData 过大等警告（见 [13-subpackage-performance](13-subpackage-performance.md)）。
-- **隐私协议 / 用户信息收集声明**：配置隐私保护指引，凡 `getUserProfile`、`getPhoneNumber`、`chooseLocation` 等收集行为都要声明用途（见 [11-login-auth](11-login-auth.md)）。
+- **体验评分 / 性能**：用开发者工具的"体验评分"跑一遍，处理白屏时间、setData 过大等警告（见 [13-subpackage-performance](../13-subpackage-performance/)）。
+- **隐私协议 / 用户信息收集声明**：配置隐私保护指引，凡 `getUserProfile`、`getPhoneNumber`、`chooseLocation` 等收集行为都要声明用途（见 [11-login-auth](../11-login-auth/)）。
 - **★ ICP 备案（2023 新规，强制）**：自 2023 年起新上架小程序须完成**工信部 ICP 备案**，未备案无法提审/上架。在微信后台"设置 → 基本设置 → 小程序备案"提交主体与负责人信息，走管局审核（约数天到数周）。**务必预留备案时间**，别等提审当天才发现没备案。
 
 **版本管理与回滚。** 后台"版本管理"里保留历史线上版本，若新版本上线后发现严重问题，可一键**回退（回滚）到指定历史版本**，用户端会恢复到旧版——这是线上事故的第一急救手段。
@@ -75,7 +75,7 @@
 - **灰度 / 分阶段发布**：发布时可选**分阶段发布**（如先放量 10% → 50% → 100%），出问题及时"停止灰度"止损。
 - **A/B 测试**：对不同用户群投放不同版本/文案，用数据决策。
 
-**抖音等其它平台（流程类似，各审各的）。** 抖音/字节小程序在**抖音开放平台（微信换成字节的后台）** 走几乎相同的流水线：上传 → 体验版 → 提审 → 发布；同样有类目、资质、隐私、备案要求，只是后台入口、审核团队、部分规则不同（tt API 差异见 [15-douyin](15-douyin.md)）。跨端项目（uni-app/Taro，见 [16-cross-platform](16-cross-platform.md)）一套代码要**在各平台后台分别提审**，各平台独立审核、独立上线。
+**抖音等其它平台（流程类似，各审各的）。** 抖音/字节小程序在**抖音开放平台（微信换成字节的后台）** 走几乎相同的流水线：上传 → 体验版 → 提审 → 发布；同样有类目、资质、隐私、备案要求，只是后台入口、审核团队、部分规则不同（tt API 差异见 [15-douyin](../15-douyin/)）。跨端项目（uni-app/Taro，见 [16-cross-platform](../16-cross-platform/)）一套代码要**在各平台后台分别提审**，各平台独立审核、独立上线。
 
 ## 💻 代码示例：上传相关配置与命令行发布
 
@@ -143,4 +143,4 @@ const ci = require('miniprogram-ci');
 - ✅ **提审前真机走全流程**——白屏、闪退、死链是常见拒审点，模拟器过不代表真机过。
 - ✅ **首发用分阶段灰度**——先放小比例流量观察崩溃率/数据，稳了再全量，出问题立即停止灰度或回滚。
 - ✅ **版本号 + 备注写规范**——便于后台追溯与回滚；团队用 `miniprogram-ci` 把上传接入 CI/CD。
-- 🔗 相关：登录授权与隐私 → [11-login-auth](11-login-auth.md)；网络域名配置 → [09-network-storage](09-network-storage.md)；性能与体验评分 → [13-subpackage-performance](13-subpackage-performance.md)；官方发布指引 → <https://developers.weixin.qq.com/miniprogram/dev/framework/release.html>。
+- 🔗 相关：登录授权与隐私 → [11-login-auth](../11-login-auth/)；网络域名配置 → [09-network-storage](../09-network-storage/)；性能与体验评分 → [13-subpackage-performance](../13-subpackage-performance/)；官方发布指引 → <https://developers.weixin.qq.com/miniprogram/dev/framework/release.html>。

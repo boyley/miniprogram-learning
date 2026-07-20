@@ -169,4 +169,4 @@ Page({
 - ✅ **`observers` 支持字段路径/通配**：`'a.b'`、`'a, b'`、`'**'`，比 Vue watch 更细。
 - ✅ **`selectComponent` 要等组件已渲染**（attached 之后）再调，否则拿到 `null`。
 - ✅ 有 Vue 基础走捷径：把组件当 Vue 组件写，重点适应 **`Component` 结构** + **`triggerEvent`/`e.detail`** + **`usingComponents` 注册** + **默认样式隔离**。
-- 🔗 上一步事件机制 → [06-events.md](06-events.md)（`bindtap`/`e.detail` 原理）；架构基础 → [01-overview-architecture.md](01-overview-architecture.md)；官方文档 → <https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/>。
+- 🔗 上一步事件机制 → [06-events.md](../06-events/)（`bindtap`/`e.detail` 原理）；架构基础 → [01-overview-architecture.md](../01-overview-architecture/)；官方文档 → <https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/>。

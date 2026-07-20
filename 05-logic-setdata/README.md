@@ -1,6 +1,6 @@
 # 05 · 逻辑层与 setData（Logic & setData）
 
-> 逻辑层是你写业务 JS 的地方（`Page` 对象：`data` + 事件 + 生命周期），而 `setData` 是它把数据**跨线程**送到界面的**唯一**通道。理解了 [01-overview-architecture](01-overview-architecture.md) 的双线程，`setData` 为什么异步、为什么要优化就全通了。重要度 ⭐⭐⭐。官方：developers.weixin.qq.com
+> 逻辑层是你写业务 JS 的地方（`Page` 对象：`data` + 事件 + 生命周期），而 `setData` 是它把数据**跨线程**送到界面的**唯一**通道。理解了 [01-overview-architecture](../01-overview-architecture/) 的双线程，`setData` 为什么异步、为什么要优化就全通了。重要度 ⭐⭐⭐。官方：developers.weixin.qq.com
 
 ## 🎯 一句话核心
 
@@ -11,7 +11,7 @@
 **Page() 构造器：一个页面的逻辑主体。** 每个页面的 `.js` 文件里调用一次 `Page({...})`，传入一个配置对象，它描述了这个页面的数据、行为和生命周期。核心成员分三类：
 
 - **`data`（页面初始数据）**：一个纯对象，页面首次渲染时会被送到渲染层参与初次渲染。可以理解成"这个页面界面上所有会变的数据的初始快照"。类比 Vue 的 `data`，但**不会自动响应**（见下文）。
-- **事件处理函数**：WXML 里 `bindtap="onTap"` 绑定的方法就写在这里，和 `data` 平级（详见 [06-events](06-events.md)）。函数里用 `this.data.x` 读数据、用 `this.setData()` 改数据。
+- **事件处理函数**：WXML 里 `bindtap="onTap"` 绑定的方法就写在这里，和 `data` 平级（详见 [06-events](../06-events/)）。函数里用 `this.data.x` 读数据、用 `this.setData()` 改数据。
 - **生命周期钩子**：页面从创建到销毁各阶段自动触发的回调。
 
 **页面生命周期（Lifecycle）。** 按触发顺序理解：
@@ -28,7 +28,7 @@
 
 **其它常用页面钩子。** 还有一批交互/滚动/分享类钩子，也写在 `Page` 里：`onPullDownRefresh`（下拉刷新，需在页面 json 开 `enablePullDownRefresh`）、`onReachBottom`（上拉触底，做分页加载）、`onPageScroll(e)`（页面滚动，`e.scrollTop`；高频，慎用）、`onShareAppMessage`（用户点转发，返回自定义标题/路径）、`onShareTimeline`（分享到朋友圈）、`onResize`（横竖屏切换/窗口尺寸变化）。
 
-**★ setData 机制（呼应双线程，重点）。** 这是整篇的核心。回顾 [01-overview-architecture](01-overview-architecture.md)：逻辑层（你的 JS）和渲染层（视图 WebView）是**两条独立线程，不能直接互访**，一切界面更新都要经**微信客户端 Native 中转**。`setData` 就是这条通道：
+**★ setData 机制（呼应双线程，重点）。** 这是整篇的核心。回顾 [01-overview-architecture](../01-overview-architecture/)：逻辑层（你的 JS）和渲染层（视图 WebView）是**两条独立线程，不能直接互访**，一切界面更新都要经**微信客户端 Native 中转**。`setData` 就是这条通道：
 
 ```
 this.setData({msg:'x'})
@@ -216,4 +216,4 @@ this._flag = true;
 - ⚠️ **数组用 `push`/`splice` 改完再整包 set**：小程序对数组无响应式，正确姿势是**数据路径新增/改项**。
 - ✅ **`onLoad` 里接路由参数**（`options`），首屏请求也放这；**`onShow` 做"每次回来要刷新"**的逻辑（如从详情页返回更新列表）。
 - ✅ **一次交互能合并的 `setData` 就合并成一次**，减少跨线程往返。
-- 🔗 相关：双线程为什么要这样 → [01-overview-architecture](01-overview-architecture.md)；事件与 `dataset` → [06-events](06-events.md)；性能与分包 → [13-subpackage-performance](13-subpackage-performance.md)；官方 setData 文档 → <https://developers.weixin.qq.com/miniprogram/dev/framework/performance/tips.html>。
+- 🔗 相关：双线程为什么要这样 → [01-overview-architecture](../01-overview-architecture/)；事件与 `dataset` → [06-events](../06-events/)；性能与分包 → [13-subpackage-performance](../13-subpackage-performance/)；官方 setData 文档 → <https://developers.weixin.qq.com/miniprogram/dev/framework/performance/tips.html>。

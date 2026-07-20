@@ -120,7 +120,7 @@ Page({
 - ⚠️ **点子节点却用了 `e.target.dataset` 取参 → 取到 `undefined`**：因为 `target` 可能是没写 `data-*` 的子节点。**传参统一用 `e.currentTarget.dataset`**。
 - ⚠️ **列表项内部按钮忘了用 `catch` → 误触发外层事件**（如点"删除"却跳了详情）。内层要拦截就用 `catchtap`。
 - ⚠️ **`data-` 属性名用了大写取不到**：`data-userId` 会被转成全小写 `dataset.userid`；请写 `data-user-id` → `dataset.userId`。
-- ⚠️ **`bindinput` 只是拿到值，视图不会自动变**——必须 `this.setData({ ... })` 回填，否则受控 `value` 不更新（小程序无 `v-model`，详见 [05-logic-setdata](05-logic-setdata.md)）。
+- ⚠️ **`bindinput` 只是拿到值，视图不会自动变**——必须 `this.setData({ ... })` 回填，否则受控 `value` 不更新（小程序无 `v-model`，详见 [05-logic-setdata](../05-logic-setdata/)）。
 - ⚠️ **`dataset` 只在渲染时快照**：`data-*` 里绑的是渲染那一刻的值，别指望它实时反映后续 data 变化；需要最新值就用 id 去 `this.data` 里查。
-- ✅ **高频事件（`bindinput`/`bindscroll`/`touchmove`）注意节流**：每次触发都会跨线程回调，频繁 `setData` 是卡顿主因（详见 [05-logic-setdata](05-logic-setdata.md)）。
-- 🔗 事件也是**自定义组件**父子通信的基础（子组件 `triggerEvent` → 父用 `bind` 接收），见 [07-components](07-component.md)；官方事件文档 → <https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxml/event.html>。
+- ✅ **高频事件（`bindinput`/`bindscroll`/`touchmove`）注意节流**：每次触发都会跨线程回调，频繁 `setData` 是卡顿主因（详见 [05-logic-setdata](../05-logic-setdata/)）。
+- 🔗 事件也是**自定义组件**父子通信的基础（子组件 `triggerEvent` → 父用 `bind` 接收），见 [07-components](../07-component/)；官方事件文档 → <https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxml/event.html>。

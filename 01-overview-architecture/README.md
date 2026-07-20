@@ -24,7 +24,7 @@
 └─────────────┘   事件回调         └──────────────┘
 ```
 
-**为什么这么设计？** ①**安全管控**：逻辑层没有 DOM/BOM，无法像网页那样随意操纵页面、跳转、执行危险操作，平台可管控；②**性能与体验**：渲染层独立，JS 长任务不会直接卡住界面；预加载、原生组件混合渲染更可控。**代价**：逻辑层和渲染层通信有开销 → **`setData` 传输的数据要尽量小、频率要低**，这是小程序性能优化的头号原则（详见 [05-logic-setdata](05-logic-setdata.md)、[13-subpackage-performance](13-subpackage-performance.md)）。
+**为什么这么设计？** ①**安全管控**：逻辑层没有 DOM/BOM，无法像网页那样随意操纵页面、跳转、执行危险操作，平台可管控；②**性能与体验**：渲染层独立，JS 长任务不会直接卡住界面；预加载、原生组件混合渲染更可控。**代价**：逻辑层和渲染层通信有开销 → **`setData` 传输的数据要尽量小、频率要低**，这是小程序性能优化的头号原则（详见 [05-logic-setdata](../05-logic-setdata/)、[13-subpackage-performance](../13-subpackage-performance/)）。
 
 **和 H5 / Vue 的关键区别（有 Web 基础对照记）：**
 
@@ -37,7 +37,7 @@
 | 能力 | 浏览器全部 API | 受限 **`wx.*`** + 需授权 |
 | 分发 | 部署服务器、URL 访问 | **提审上架**到平台 |
 
-**主流小程序平台。** 微信（生态最大、主线）、抖音/字节（tt API，[15-douyin](15-douyin.md)）、支付宝、百度、快手等。语法大同小异，跨端可用 uni-app/Taro 一套代码多端（[16-cross-platform](16-cross-platform.md)）。
+**主流小程序平台。** 微信（生态最大、主线）、抖音/字节（tt API，[15-douyin](../15-douyin/)）、支付宝、百度、快手等。语法大同小异，跨端可用 uni-app/Taro 一套代码多端（[16-cross-platform](../16-cross-platform/)）。
 
 **开发工具。** **微信开发者工具**（官方 IDE，写代码 + 模拟器预览 + 调试 + 真机预览 + 上传）。需注册小程序账号拿 **AppID**。
 
@@ -93,8 +93,8 @@ Page({
 ## ⚠️ 易错点 / 最佳实践
 
 - ⚠️ **别想着操作 DOM**——没有 `document`/`window` 那套；一切界面变化走 `setData`。
-- ⚠️ **`setData` 不是越多越好**——每次都跨线程传输，频繁/大数据量 setData 是卡顿主因；只 set 变化的最小字段（详见 [05-logic-setdata](05-logic-setdata.md)）。
+- ⚠️ **`setData` 不是越多越好**——每次都跨线程传输，频繁/大数据量 setData 是卡顿主因；只 set 变化的最小字段（详见 [05-logic-setdata](../05-logic-setdata/)）。
 - ⚠️ **data 改了不 setData 视图不变**——直接 `this.data.x = 1` 不会更新界面，必须 `this.setData`。
 - ✅ **先装微信开发者工具 + 注册拿 AppID**（没 AppID 可先用"测试号"）。
 - ✅ **有 Vue 基础走捷径**：WXML≈模板语法、组件化≈Vue 组件、生命周期类似，重点砸 setData 机制和 wx.* 能力。
-- 🔗 下一步：项目结构与配置 → [02-project-config](02-project-config.md)；官方文档 → <https://developers.weixin.qq.com/miniprogram/dev/framework/>。
+- 🔗 下一步：项目结构与配置 → [02-project-config](../02-project-config/)；官方文档 → <https://developers.weixin.qq.com/miniprogram/dev/framework/>。

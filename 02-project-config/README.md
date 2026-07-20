@@ -38,7 +38,7 @@ myapp/
 - **`window`**：全局窗口外观。常用：`navigationBarTitleText`（导航栏标题）、`navigationBarBackgroundColor`（导航栏背景，仅 `#000000`/`#ffffff` 等）、`navigationBarTextStyle`（`black`/`white` 二选一）、`backgroundColor`（窗口背景）、`enablePullDownRefresh`（开启下拉刷新，配合页面 `onPullDownRefresh`）、`onReachBottomDistance`（上拉触底距离）。
 - **`tabBar`**：底部/顶部标签栏。配了它才有原生底部导航。`list` 数组 **2~5 项**，每项 `pagePath`（必须是已注册页面）+ `text` + 图标。**tabBar ≈ App 底部导航配置**（类似 uni-app 的 tabBar、原生 App 的 TabController）。
 - **`usingComponents`**：**全局**注册自定义组件（所有页面免声明直接用）。局部只在某页用则写在**页面 json** 里，见下文。
-- **`subpackages`**（分包）：把部分页面拆成独立包，**主包只装启动必需的**，其余按需下载，突破 2MB 主包限制、加快启动。详见 [13-subpackage-performance](13-subpackage-performance.md)。
+- **`subpackages`**（分包）：把部分页面拆成独立包，**主包只装启动必需的**，其余按需下载，突破 2MB 主包限制、加快启动。详见 [13-subpackage-performance](../13-subpackage-performance/)。
 - **`permission` / `requiredPrivateInfos`**：权限声明。`permission.scope.userLocation` 配定位授权的说明文案；`requiredPrivateInfos` 声明要调用的**敏感隐私接口**（如 `getLocation`、`chooseAddress`），**不声明直接调用会失败**（新规）。
 
 **页面四文件 + 页面 json 覆盖。** 每个页面一个目录，四个同名文件：`.wxml`（结构）、`.wxss`（样式）、`.js`（`Page` 逻辑）、`.json`（**该页面**配置）。**页面 json 里的 `window` 字段会覆盖 `app.json` 的全局 window**——比如全局标题叫"我的 App"，详情页想显示"商品详情"，就在详情页 json 写 `navigationBarTitleText`。页面 json 还能写局部 `usingComponents`、`enablePullDownRefresh` 等。**注意页面 json 直接写窗口字段，不用再包一层 `window`**（这是和 app.json 的区别）。
@@ -182,5 +182,5 @@ Page({
 - ✅ **区分 App 生命周期与页面生命周期**：`onLaunch` 全局只一次（放登录/初始化），页面 `onLoad`/`onShow` 每次进页面触发（见 08）。
 - ✅ **导航栏颜色只认 black/white**：`navigationBarTextStyle` 不能填任意色值，想要彩色标题得用自定义导航栏（`"navigationStyle": "custom"`）。
 - ✅ **全局用 `app.wxss` 放通用样式**（如重置、公共类），页面 `.wxss` 放页面专属，避免每页重复。
-- 🔗 下一步：页面结构语言 → [03-wxml](03-wxml.md)（若未创建以实际编号为准）；分包 → [13-subpackage-performance](13-subpackage-performance.md)；上一篇：[01-overview-architecture](01-overview-architecture.md)。官方配置文档 → <https://developers.weixin.qq.com/miniprogram/dev/reference/configuration/app.html>。
+- 🔗 下一步：页面结构语言 → [03-wxml](../03-wxml/)（若未创建以实际编号为准）；分包 → [13-subpackage-performance](../13-subpackage-performance/)；上一篇：[01-overview-architecture](../01-overview-architecture/)。官方配置文档 → <https://developers.weixin.qq.com/miniprogram/dev/reference/configuration/app.html>。
 ```

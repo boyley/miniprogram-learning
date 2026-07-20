@@ -4,11 +4,11 @@
 
 ## 🎯 一句话核心
 
-WXML ≈ **Vue 模板 + 换了一套标签**：`{{}}` 是插值、`wx:for` 是 `v-for`、`wx:if` 是 `v-if`、`view` 是 `div`。最大不同是——**WXML 里的表达式只能"读" data，不能改 data**（改数据一律回 JS 里 `setData`，因为双线程，见 [01-overview-architecture.md](01-overview-architecture.md)）。
+WXML ≈ **Vue 模板 + 换了一套标签**：`{{}}` 是插值、`wx:for` 是 `v-for`、`wx:if` 是 `v-if`、`view` 是 `div`。最大不同是——**WXML 里的表达式只能"读" data，不能改 data**（改数据一律回 JS 里 `setData`，因为双线程，见 [01-overview-architecture.md](../01-overview-architecture/)）。
 
 ## 📖 核心概念 / 讲解
 
-**WXML 是什么。** 它是小程序页面的**结构层**（页面四文件里的 `.wxml`，见 [01-overview-architecture.md](01-overview-architecture.md)）。写法像 HTML：标签 + 属性 + 嵌套。但**没有 div/span/a/img 这些 HTML 标签**，取而代之的是小程序**基础组件**：`view`（块容器，≈div）、`text`（文本，≈span）、`image`（图片，≈img）、`button`、`scroll-view`（滚动容器）、`swiper`（轮播）、`navigator`（跳转，≈a）等。这些组件由宿主（微信/抖音）用原生渲染，能力和样式受平台约束。
+**WXML 是什么。** 它是小程序页面的**结构层**（页面四文件里的 `.wxml`，见 [01-overview-architecture.md](../01-overview-architecture/)）。写法像 HTML：标签 + 属性 + 嵌套。但**没有 div/span/a/img 这些 HTML 标签**，取而代之的是小程序**基础组件**：`view`（块容器，≈div）、`text`（文本，≈span）、`image`（图片，≈img）、`button`、`scroll-view`（滚动容器）、`swiper`（轮播）、`navigator`（跳转，≈a）等。这些组件由宿主（微信/抖音）用原生渲染，能力和样式受平台约束。
 
 **★ 数据绑定 `{{ }}`（≈ Vue 插值）。** 把逻辑层 `data` 里的值"填"进模板。可用于**文本内容**和**属性值**，内部支持简单**运算**和**三元表达式**，但**不能改数据、不能调用你自定义的方法**（只能读、只能做纯表达式）：
 
@@ -49,7 +49,7 @@ WXML ≈ **Vue 模板 + 换了一套标签**：`{{}}` 是插值、`wx:for` 是 `
 <view hidden="{{!visible}}">频繁开关的用 hidden</view>
 ```
 
-**事件绑定 `bindtap` / `catchtap`。** WXML 里绑事件不是 `onclick`，而是 `bind*` 系列：`bindtap`（点击）、`bindinput`（输入）等。`bind` 会**冒泡**，`catch`（如 `catchtap`）会**阻止冒泡**。方法写在 JS 的 `Page({})` 里。此处只需知道写法，详见 [06-events.md](06-events.md)：
+**事件绑定 `bindtap` / `catchtap`。** WXML 里绑事件不是 `onclick`，而是 `bind*` 系列：`bindtap`（点击）、`bindinput`（输入）等。`bind` 会**冒泡**，`catch`（如 `catchtap`）会**阻止冒泡**。方法写在 JS 的 `Page({})` 里。此处只需知道写法，详见 [06-events.md](../06-events/)：
 
 ```html
 <button bindtap="onTap" data-id="{{item.id}}">点我</button>
@@ -92,7 +92,7 @@ WXML ≈ **Vue 模板 + 换了一套标签**：`{{}}` 是插值、`wx:for` 是 `
 | `input` | 输入框 | `input` | 值靠 `bindinput` + `setData` 同步（无 v-model） |
 | `scroll-view` | 可滚动区域 | 带 `overflow` 的 div | 纵向滚要设 `scroll-y` + 固定高度 |
 | `swiper` | 轮播/滑块 | 无 | 配 `swiper-item` 子项 |
-| `navigator` | 页面跳转 | `a` | 用 `url` + `open-type` 跳转（见 [08-routing-lifecycle.md](08-routing-lifecycle.md)） |
+| `navigator` | 页面跳转 | `a` | 用 `url` + `open-type` 跳转（见 [08-routing-lifecycle.md](../08-routing-lifecycle/)） |
 
 **和 Vue 模板的整体对照。**
 
@@ -168,7 +168,7 @@ Page({
 - `wx:for` 默认 `item`/`index`，可用 `wx:for-item`/`wx:for-index` 改名；**`wx:key` 必写**（复用节点、最小 diff）。
 - **`wx:if` 控渲染（v-if）** vs **`hidden` 控显示（v-show）**：频繁切换用 `hidden`，否则用 `wx:if`。
 - `<block>` 只做逻辑包裹**不渲染真实节点**（≈Vue `<template>`）；`template`/`import`/`include` 复用片段。
-- 事件用 `bindtap`（冒泡）/ `catchtap`（阻断），不是 `onclick`（见 [06-events.md](06-events.md)）。
+- 事件用 `bindtap`（冒泡）/ `catchtap`（阻断），不是 `onclick`（见 [06-events.md](../06-events/)）。
 
 ## ⚠️ 易错点 / 最佳实践
 
@@ -176,7 +176,7 @@ Page({
 - ⚠️ **`wx:key` 不写 `{{}}`**：填字段名 `wx:key="id"`，或数组是原始值时用 `wx:key="*this"`。别误写成 `wx:key="{{item.id}}"`。
 - ⚠️ **`image` 一定给 `mode`**：默认 `scaleToFill` 会拉伸变形；等宽高比用 `aspectFill`，按宽自适应高用 `widthFix`。
 - ⚠️ **`{{}}` 里不能写复杂逻辑**：不能调用 `Page` 里的方法、不能 `a.map(...)`，需要处理就先在 JS 里算好再 `setData`。
-- ⚠️ **想改数据不能在 WXML 里改**：模板只负责展示，改值回 JS `this.setData({...})`（双线程原理见 [01-overview-architecture.md](01-overview-architecture.md)）。
+- ⚠️ **想改数据不能在 WXML 里改**：模板只负责展示，改值回 JS `this.setData({...})`（双线程原理见 [01-overview-architecture.md](../01-overview-architecture/)）。
 - ✅ **`scroll-view` 纵向滚动**要同时设 `scroll-y` 和**固定高度**，否则不滚。
 - ✅ **频繁 toggle 用 `hidden`、偶发/初始隐藏用 `wx:if`**，减少不必要的节点创建销毁。
-- 🔗 下一步：样式 → [04-wxss.md](04-wxss.md)；逻辑与 setData → [05-logic-setdata.md](05-logic-setdata.md)；事件 → [06-events.md](06-events.md)；官方组件文档 → <https://developers.weixin.qq.com/miniprogram/dev/component/>。
+- 🔗 下一步：样式 → [04-wxss.md](../04-wxss/)；逻辑与 setData → [05-logic-setdata.md](../05-logic-setdata/)；事件 → [06-events.md](../06-events/)；官方组件文档 → <https://developers.weixin.qq.com/miniprogram/dev/component/>。

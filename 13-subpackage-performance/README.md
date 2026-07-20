@@ -1,6 +1,6 @@
 # 13 · 分包与性能优化（Subpackage & Performance）
 
-> 小程序性能优化的两条主线：**空间上分包**（把代码拆成"主包 + 按需下载的分包"，让首屏只下最小的主包，启动更快）和**时间上省通信/省渲染**（少而小的 `setData`、长列表虚拟化、图片懒加载）。全都根植于 [01-overview-architecture](01-overview-architecture.md) 的双线程与包体加载模型。重要度 ⭐⭐⭐。官方：developers.weixin.qq.com
+> 小程序性能优化的两条主线：**空间上分包**（把代码拆成"主包 + 按需下载的分包"，让首屏只下最小的主包，启动更快）和**时间上省通信/省渲染**（少而小的 `setData`、长列表虚拟化、图片懒加载）。全都根植于 [01-overview-architecture](../01-overview-architecture/) 的双线程与包体加载模型。重要度 ⭐⭐⭐。官方：developers.weixin.qq.com
 
 ## 🎯 一句话核心
 
@@ -45,7 +45,7 @@
 4. **避免首屏大量 `setData`**：`onLoad` 里别一次性 `setData` 巨大数据；首屏请求尽量并行、只 set 首屏可见的量。
 5. **首屏请求提前/并行**：`onLoad` 里尽早发起数据请求（别等 `onReady`）；多个独立请求并行发。
 
-**★ setData 优化（呼应 [05-logic-setdata](05-logic-setdata.md)）。** 运行期最大的性能杠杆。核心五条，此处速记，展开与代码见 05：
+**★ setData 优化（呼应 [05-logic-setdata](../05-logic-setdata/)）。** 运行期最大的性能杠杆。核心五条，此处速记，展开与代码见 05：
 
 | 原则 | 做法 |
 |---|---|
@@ -82,7 +82,7 @@
 
 **其它优化。**
 
-- **合理使用缓存**：`wx.setStorageSync` 缓存不常变的数据（配置、上次列表），二次进入先用缓存渲染再后台刷新，减少等待与请求（见 [09-network-storage](09-network-storage.md)）。
+- **合理使用缓存**：`wx.setStorageSync` 缓存不常变的数据（配置、上次列表），二次进入先用缓存渲染再后台刷新，减少等待与请求（见 [09-network-storage](../09-network-storage/)）。
 - **避免频繁 `wx.request`**：合并接口、加本地缓存、加载态防重复请求；搜索联想等用**防抖（debounce）**。
 - **节流 / 防抖**：滚动、输入、拖动等高频操作用 throttle/debounce 控制触发频率，减少 `setData` 与请求。
 - **分包异步化**：重型且不常用的模块拆成异步分包，进一步压小主包。
@@ -199,7 +199,7 @@ onInput(e) {
 - **★ 预下载 `preloadRule`**：进某页时提前下好将要用的分包（可限 `network: wifi`），到时秒开。
 - **★ 独立分包 `independent: true`**：不依赖主包、可单独启动（分享/扫码直达秒开），但用不了主包公共内容。
 - **★ 启动优化**：减小主包（拆分包）+ 图片 CDN/压缩/懒加载/WebP + 骨架屏 + 首屏别大量 `setData` + 请求并行。
-- **★ setData 优化**（详见 [05-logic-setdata](05-logic-setdata.md)）：只 set 最小数据、降频/节流、数据路径更新、不上屏的放 `this`、分页避免一次传大数据。
+- **★ setData 优化**（详见 [05-logic-setdata](../05-logic-setdata/)）：只 set 最小数据、降频/节流、数据路径更新、不上屏的放 `this`、分页避免一次传大数据。
 - **★ 长列表**：`onReachBottom` **分页追加** / `recycle-view` **虚拟列表**（只渲染可视区、回收节点）。
 - **图片**：合适尺寸 + CDN + `lazy-load` + WebP + 正确 `mode`。
 - **体验评分（Audits）**：开发者工具跑分，常见扣分——setData 过大/过频、图片过大、首屏慢、主包过大、无用样式。
@@ -213,7 +213,7 @@ onInput(e) {
 - ⚠️ **首次进分包卡一下**：这是按需下载的正常现象，用 **`preloadRule` 预下载**大概率要去的分包来消除。
 - ⚠️ **大图打进代码包**：图片占用 2MB 包额度，应放 **CDN** 用网络地址，并压缩 / 用 WebP。
 - ⚠️ **长列表一次渲染上万条**：内存暴涨、滚动卡死；用**分页**（`onReachBottom`）或 **`recycle-view` 虚拟列表**。
-- ⚠️ **首屏 `onLoad` 里 `setData` 巨大对象**：拆小、只 set 首屏可见量，避免启动就卡（呼应 [05-logic-setdata](05-logic-setdata.md)）。
+- ⚠️ **首屏 `onLoad` 里 `setData` 巨大对象**：拆小、只 set 首屏可见量，避免启动就卡（呼应 [05-logic-setdata](../05-logic-setdata/)）。
 - ✅ **上传前跑一遍"体验评分（Audits）"**，按扣分项逐条优化，比凭感觉调更准。
 - ✅ **合理缓存 + 防抖节流**：不常变数据 `wx.setStorageSync` 缓存先渲染再刷新；搜索/滚动加 debounce/throttle。
-- 🔗 相关：双线程与加载模型 → [01-overview-architecture](01-overview-architecture.md)；setData 机制与优化详解 → [05-logic-setdata](05-logic-setdata.md)；缓存与网络 → [09-network-storage](09-network-storage.md)；官方性能优化 → <https://developers.weixin.qq.com/miniprogram/dev/framework/performance/tips.html>；官方分包 → <https://developers.weixin.qq.com/miniprogram/dev/framework/subpackages/basic.html>。
+- 🔗 相关：双线程与加载模型 → [01-overview-architecture](../01-overview-architecture/)；setData 机制与优化详解 → [05-logic-setdata](../05-logic-setdata/)；缓存与网络 → [09-network-storage](../09-network-storage/)；官方性能优化 → <https://developers.weixin.qq.com/miniprogram/dev/framework/performance/tips.html>；官方分包 → <https://developers.weixin.qq.com/miniprogram/dev/framework/subpackages/basic.html>。

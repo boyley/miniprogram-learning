@@ -11,11 +11,11 @@
 **★ 微信登录流程（最核心，务必理解这条链）。** 和 Web 最大的不同：用户不输账号密码，微信天然知道"你是谁"。整条链路的关键是**谁能碰 AppSecret**——它是小程序的"总钥匙"，**只能存在后端**，绝不能进前端代码。因此换身份这一步**必须由后端做**：
 
 1. **小程序：`wx.login()`** → 微信客户端返回一个**临时凭证 code**（`res.code`）。code 只是"提货单"，本身不含用户信息，**5 分钟过期、只能换一次**。
-2. **小程序 → 你的后端**：用 `wx.request` 把 code 发给自己的登录接口（如 `POST /login`，见 [09-network-storage](09-network-storage.md)）。
+2. **小程序 → 你的后端**：用 `wx.request` 把 code 发给自己的登录接口（如 `POST /login`，见 [09-network-storage](../09-network-storage/)）。
 3. **后端 → 微信服务器**：后端用 `code + AppID + AppSecret` 调微信接口 **`code2Session`**（`https://api.weixin.qq.com/sns/jscode2session`）。
 4. **微信服务器 → 你的后端**：返回 **openid**（该用户在此小程序内的唯一标识）+ **session_key**（会话密钥，用于解密敏感数据）+（可能有）unionid。
 5. **后端**：拿 openid 去自己数据库查/建用户，生成**自己的登录态 token**（JWT 或 session id），**把 session_key 留在后端**（切勿下发），只把 token 返回小程序。
-6. **小程序**：把 token 存进 `wx.setStorageSync('token', ...)`（[09-network-storage](09-network-storage.md)）。
+6. **小程序**：把 token 存进 `wx.setStorageSync('token', ...)`（[09-network-storage](../09-network-storage/)）。
 7. **后续请求**：每次 `wx.request` 在 header 带上 token（如 `Authorization`），后端校验 token 认出用户。
 
 **为什么非要绕后端？** 因为换身份需要 **AppSecret**，而 AppSecret 一旦泄露别人就能冒充你的小程序换取任意用户身份。前端代码是公开可反编译的，所以微信的设计强制：**前端只拿 code，换身份必须在后端**。
@@ -215,4 +215,4 @@ wx.getSetting({
 - ⚠️ **登录态会过期**：token 过期或 `wx.checkSession()` 发现 session 失效时，要重新走 `wx.login` 换新 token。
 - ✅ **登录时机**：`wx.login` 无需授权可尽早做（甚至 `onLaunch`）换好 token；把"授权用户信息/手机号"延后到用户真正需要时再弹，体验更好。
 - ✅ 拒绝授权要有兜底：用 `wx.getSetting` 判断，用 `wx.openSetting` 引导，别让流程卡死。
-- 🔗 上一步：网络与存储（存 token、带 header）→ [09-network-storage](09-network-storage.md)；常用 API → [10-apis](10-apis.md)；官方文档 → <https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/login.html>。
+- 🔗 上一步：网络与存储（存 token、带 header）→ [09-network-storage](../09-network-storage/)；常用 API → [10-apis](../10-apis/)；官方文档 → <https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/login.html>。

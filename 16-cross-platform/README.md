@@ -8,7 +8,7 @@
 
 ## 📖 核心概念 / 讲解
 
-**★ 为什么要跨端。** 前面 [01-overview-architecture](01-overview-architecture.md) 讲过，微信、抖音（[15-douyin](15-douyin.md)）、支付宝、百度、快手各有一套小程序，语法**大同小异但不通用**：微信用 `wx.request`、抖音用 `tt.request`，标签/生命周期也有差别。业务要同时上多个平台，用原生就得**维护 N 套代码**，改一个需求改 N 遍，成本爆炸。跨端框架的答案是：**写一套，编译到多端**——目标端不仅是各家小程序，还包括 **H5 网页**和 **Android/iOS App**（这一点是原生小程序做不到的）。
+**★ 为什么要跨端。** 前面 [01-overview-architecture](../01-overview-architecture/) 讲过，微信、抖音（[15-douyin](../15-douyin/)）、支付宝、百度、快手各有一套小程序，语法**大同小异但不通用**：微信用 `wx.request`、抖音用 `tt.request`，标签/生命周期也有差别。业务要同时上多个平台，用原生就得**维护 N 套代码**，改一个需求改 N 遍，成本爆炸。跨端框架的答案是：**写一套，编译到多端**——目标端不仅是各家小程序，还包括 **H5 网页**和 **Android/iOS App**（这一点是原生小程序做不到的）。
 
 **★ uni-app（重点）。** **DCloud** 出品，基于 **Vue 语法**（Vue 2/3 都支持）。你写标准的 **Vue 单文件组件**（`.vue`，`<template>`/`<script>`/`<style>`），框架编译到微信/抖音/支付宝/百度/快手等**小程序 + H5 + Android/iOS App**。API 用统一的 **`uni.*`**（如 `uni.request`、`uni.navigateTo`、`uni.setStorage`），编译时映射到各端的 `wx.*`/`tt.*`。配套 IDE 是 **HBuilderX**（也可用 CLI + VSCode），有庞大的**插件市场**。**Vue 技术栈团队首选**——模板语法、指令、组件写法几乎零学习成本。
 
@@ -157,5 +157,5 @@ if (process.env.TARO_ENV === 'weapp') {
 - ⚠️ **性能敏感场景慎用**——长列表、复杂动画、高频交互，跨端多一层适配可能卡顿；极致性能场景考虑原生或原生渲染（uni-app 的 nvue）。
 - ⚠️ **框架/新特性滞后**——平台出了新能力，框架可能没跟上；深度依赖某端最新特性时，跨端会拖后腿。
 - ✅ **技术栈决定选型**：Vue 团队 uni-app、React 团队 Taro，别逆着技术栈选，学习成本会吃掉跨端省下的成本。
-- ✅ **先想清楚要不要跨端**：只上微信一个平台、且要极致性能/深用微信能力 → 直接原生（[01-overview-architecture](01-overview-architecture.md)）更省心；要覆盖微信+抖音+H5+App → 跨端才划算。
-- 🔗 官方文档：uni-app <https://uniapp.dcloud.net.cn/>、Taro <https://taro.jd.com/>；上一站抖音小程序 → [15-douyin](15-douyin.md)。
+- ✅ **先想清楚要不要跨端**：只上微信一个平台、且要极致性能/深用微信能力 → 直接原生（[01-overview-architecture](../01-overview-architecture/)）更省心；要覆盖微信+抖音+H5+App → 跨端才划算。
+- 🔗 官方文档：uni-app <https://uniapp.dcloud.net.cn/>、Taro <https://taro.jd.com/>；上一站抖音小程序 → [15-douyin](../15-douyin/)。

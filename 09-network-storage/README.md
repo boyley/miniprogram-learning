@@ -18,7 +18,7 @@
 
 **★ 本地存储 Storage。** 小程序用 `wx.setStorageSync(key, data)` / `wx.getStorageSync(key)` / `wx.removeStorageSync(key)` / `wx.clearStorageSync()` 做**同步**读写（还有对应的异步版 `wx.setStorage`/`getStorage`…带 success/fail）。它≈ 浏览器 `localStorage`，但更强：**能直接存对象/数组/布尔/数字**（内部帮你序列化，取出来还是原类型，不用手动 `JSON.stringify`）。限制：**单个 key ≤ 1MB，单个小程序总上限 ≤ 10MB**，超了会 `fail`。用途：存 token、用户信息、缓存的接口数据、草稿等。
 
-**★ 登录态维持（实战闭环）。** 小程序没有 Cookie 自动带、没有浏览器 Session，登录态**全靠自己维护**：登录接口成功后拿到后端返的 `token` → `wx.setStorageSync('token', token)` 存起来 → 之后**每次请求在 `header` 里带上 `Authorization`（或自定义头）** → 后端校验 token；一旦返回 **401**（token 过期/无效），在 request 工具里统一拦截：清掉本地 token → 跳登录页重新走登录。这套完整流程见 [11-login-auth.md](11-login-auth.md)。
+**★ 登录态维持（实战闭环）。** 小程序没有 Cookie 自动带、没有浏览器 Session，登录态**全靠自己维护**：登录接口成功后拿到后端返的 `token` → `wx.setStorageSync('token', token)` 存起来 → 之后**每次请求在 `header` 里带上 `Authorization`（或自定义头）** → 后端校验 token；一旦返回 **401**（token 过期/无效），在 request 工具里统一拦截：清掉本地 token → 跳登录页重新走登录。这套完整流程见 [11-login-auth.md](../11-login-auth/)。
 
 **和 Web 的对照（有基础对照记）：**
 
@@ -184,7 +184,7 @@ async function login(code) {
 - **★ 封 request 工具**：baseURL + header 带 token + Promise 化 + loading + 统一错误/401 拦截 ≈ axios 实例+拦截器。
 - 其它：`wx.uploadFile`（上传）/ `wx.downloadFile`（下载）/ `wx.connectSocket`（WebSocket，走 socket 合法域名）。
 - **Storage**：`setStorageSync`/`getStorageSync`/`removeStorageSync`（同步）+ 异步版；**能直接存对象**，单 key ≤1MB、总 ≤10MB。
-- **登录态**：token 存 storage → 每次请求 header 带上 → 401 清 token 跳登录（详见 [11-login-auth.md](11-login-auth.md)）。
+- **登录态**：token 存 storage → 每次请求 header 带上 → 401 清 token 跳登录（详见 [11-login-auth.md](../11-login-auth/)）。
 - 对照 Web：`wx.request`≈`fetch`/`axios`（但回调式+要配域名）、storage≈`localStorage`（但能存对象、有容量限制）。
 
 ## ⚠️ 易错点 / 最佳实践
@@ -196,4 +196,4 @@ async function login(code) {
 - ⚠️ **Storage 不是加密的**：token 明文存在本地，敏感数据别裸存；容量超 10MB 会 `fail`，缓存要定期清理。
 - ✅ **`content-type` 大小写敏感坑**：小程序里请求头习惯用小写 `content-type`；POST JSON 时确保它是 `application/json`，否则后端可能收不到 body。
 - ✅ **Promise 化 + `async/await`** 让异步代码线性可读；配合 `try/catch` 兜底，错误提示统一在拦截器里 `toast`。
-- 🔗 下一步：常用 API → [10-apis.md](10-apis.md)；登录授权完整流程 → [11-login-auth.md](11-login-auth.md)；官方：<https://developers.weixin.qq.com/miniprogram/dev/api/network/request/wx.request.html>。
+- 🔗 下一步：常用 API → [10-apis.md](../10-apis/)；登录授权完整流程 → [11-login-auth.md](../11-login-auth/)；官方：<https://developers.weixin.qq.com/miniprogram/dev/api/network/request/wx.request.html>。

@@ -27,23 +27,23 @@
 
 | # | 知识点 | 一句话 | 状态 |
 |---|---|---|:--:|
-| 01 | [小程序全景与架构](01-overview-architecture.md) | 是什么、双线程架构、和 H5 区别、开发者工具 | ✅ |
-| 02 | [项目结构与配置](02-project-config.md) | app 三文件 / 页面四文件 / app.json 全局配置 | ✅ |
-| 03 | [WXML 模板语法](03-wxml.md) | 数据绑定、wx:for、wx:if、事件绑定、template | ✅ |
-| 04 | [WXSS 样式](04-wxss.md) | rpx 响应式单位、样式导入、和 CSS 区别 | ✅ |
-| 05 | [逻辑层与 setData](05-logic-setdata.md) | Page/data/setData 原理与性能、生命周期 | ✅ |
-| 06 | [事件系统](06-events.md) | bind/catch、事件对象、冒泡、dataset 传参 | ✅ |
-| 07 | [自定义组件](07-component.md) | Component、properties、slot、组件通信、behaviors | ✅ |
-| 08 | [页面路由与生命周期](08-routing-lifecycle.md) | navigateTo/switchTab、页面栈、生命周期全景 | ✅ |
-| 09 | [网络请求与本地存储](09-network-storage.md) | wx.request 封装、storage、登录态维持 | ✅ |
-| 10 | [常用 API 与能力](10-apis.md) | 用户信息/定位/扫码/分享/媒体/剪贴板 | ✅ |
-| 11 | [登录与授权](11-login-auth.md) | wx.login→code→后端换 openid、getUserProfile、手机号 | ✅ |
-| 12 | [微信支付](12-payment.md) | 支付下单流程、前后端时序、安全 | ✅ |
-| 13 | [分包与性能优化](13-subpackage-performance.md) | 主包/分包、预下载、setData 优化、首屏、体验评分 | ✅ |
-| 14 | [云开发](14-cloud.md) | 云函数/云数据库/云存储，免后端快速开发 | ✅ |
-| 15 | [抖音/字节小程序](15-douyin.md) | 和微信的异同、tt API、多平台注意 | ✅ |
-| 16 | [跨端 uni-app / Taro](16-cross-platform.md) | 一套代码多端、原理、和原生取舍 | ✅ |
-| 17 | [发布与上架](17-publish.md) | 版本管理、体验版、审核、常见拒审 | ✅ |
+| 01 | [小程序全景与架构](01-overview-architecture/) | 是什么、双线程架构、和 H5 区别、开发者工具 | ✅ |
+| 02 | [项目结构与配置](02-project-config/) | app 三文件 / 页面四文件 / app.json 全局配置 | ✅ |
+| 03 | [WXML 模板语法](03-wxml/) | 数据绑定、wx:for、wx:if、事件绑定、template | ✅ |
+| 04 | [WXSS 样式](04-wxss/) | rpx 响应式单位、样式导入、和 CSS 区别 | ✅ |
+| 05 | [逻辑层与 setData](05-logic-setdata/) | Page/data/setData 原理与性能、生命周期 | ✅ |
+| 06 | [事件系统](06-events/) | bind/catch、事件对象、冒泡、dataset 传参 | ✅ |
+| 07 | [自定义组件](07-component/) | Component、properties、slot、组件通信、behaviors | ✅ |
+| 08 | [页面路由与生命周期](08-routing-lifecycle/) | navigateTo/switchTab、页面栈、生命周期全景 | ✅ |
+| 09 | [网络请求与本地存储](09-network-storage/) | wx.request 封装、storage、登录态维持 | ✅ |
+| 10 | [常用 API 与能力](10-apis/) | 用户信息/定位/扫码/分享/媒体/剪贴板 | ✅ |
+| 11 | [登录与授权](11-login-auth/) | wx.login→code→后端换 openid、getUserProfile、手机号 | ✅ |
+| 12 | [微信支付](12-payment/) | 支付下单流程、前后端时序、安全 | ✅ |
+| 13 | [分包与性能优化](13-subpackage-performance/) | 主包/分包、预下载、setData 优化、首屏、体验评分 | ✅ |
+| 14 | [云开发](14-cloud/) | 云函数/云数据库/云存储，免后端快速开发 | ✅ |
+| 15 | [抖音/字节小程序](15-douyin/) | 和微信的异同、tt API、多平台注意 | ✅ |
+| 16 | [跨端 uni-app / Taro](16-cross-platform/) | 一套代码多端、原理、和原生取舍 | ✅ |
+| 17 | [发布与上架](17-publish/) | 版本管理、体验版、审核、常见拒审 | ✅ |
 
 ---
 
