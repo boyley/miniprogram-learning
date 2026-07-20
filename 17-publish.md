@@ -144,5 +144,3 @@ const ci = require('miniprogram-ci');
 - ✅ **首发用分阶段灰度**——先放小比例流量观察崩溃率/数据，稳了再全量，出问题立即停止灰度或回滚。
 - ✅ **版本号 + 备注写规范**——便于后台追溯与回滚；团队用 `miniprogram-ci` 把上传接入 CI/CD。
 - 🔗 相关：登录授权与隐私 → [11-login-auth](11-login-auth.md)；网络域名配置 → [09-network-storage](09-network-storage.md)；性能与体验评分 → [13-subpackage-performance](13-subpackage-performance.md)；官方发布指引 → <https://developers.weixin.qq.com/miniprogram/dev/framework/release.html>。
-</content>
-</invoke>

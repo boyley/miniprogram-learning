@@ -108,5 +108,3 @@ Page({
 - ⚠️ **审核规则不同**：抖音对**电商/内容/诱导**类目审核口径和微信不一样，迁移别假设"微信过了抖音就过"。
 - ✅ **多端优先用框架**：新项目直接上 uni-app/Taro 写一份，平台差异用条件编译隔离，只在特色能力处分端（[16-cross-platform](16-cross-platform.md)）。
 - 🔗 上一步能力/API → [10-apis](10-apis.md)、登录 → [11-login-auth](11-login-auth.md)；下一步跨端一套代码多端 → [16-cross-platform](16-cross-platform.md)；官方文档 → <https://developer.open-douyin.com/docs/resource/zh-CN/mini-app/introduction/overview>。
-</content>
-</invoke>

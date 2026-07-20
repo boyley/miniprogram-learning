@@ -92,7 +92,7 @@ WXML ≈ **Vue 模板 + 换了一套标签**：`{{}}` 是插值、`wx:for` 是 `
 | `input` | 输入框 | `input` | 值靠 `bindinput` + `setData` 同步（无 v-model） |
 | `scroll-view` | 可滚动区域 | 带 `overflow` 的 div | 纵向滚要设 `scroll-y` + 固定高度 |
 | `swiper` | 轮播/滑块 | 无 | 配 `swiper-item` 子项 |
-| `navigator` | 页面跳转 | `a` | 用 `url` + `open-type` 跳转（见 [08-route-lifecycle.md](08-route-lifecycle.md)） |
+| `navigator` | 页面跳转 | `a` | 用 `url` + `open-type` 跳转（见 [08-routing-lifecycle.md](08-routing-lifecycle.md)） |
 
 **和 Vue 模板的整体对照。**
 

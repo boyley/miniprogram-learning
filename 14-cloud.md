@@ -157,5 +157,3 @@ Page({
 - ✅ **免登录换 openid 用云函数最省事**：省掉 `wx.login` → code2session → 自建服务器那套（对比 [11-login-auth](11-login-auth.md)）。
 - ✅ **关注免费额度与计费**：调用次数、数据库读写、存储/CDN 流量都计量，上线前估算用量，避免超额扣费。
 - 🔗 深入：官方云开发文档 → <https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/getting-started.html>；不用云开发时的联网与登录 → [09-network-storage](09-network-storage.md)、[11-login-auth](11-login-auth.md)。
-</content>
-</invoke>
