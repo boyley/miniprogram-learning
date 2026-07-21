@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "07 自定义组件",
+  "usingComponents": {
+    "counter": "./components/counter/counter"
+  }
+}

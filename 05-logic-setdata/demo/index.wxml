@@ -1,0 +1,56 @@
+<!-- 05 逻辑层与 setData —— setData 机制与优化演示 -->
+<view class="page">
+
+  <!-- 顶部：最近一次操作，直观看到「改了什么数据」 -->
+  <view class="banner">
+    <text class="banner-label">最近操作</text>
+    <text class="banner-value">{{lastAction}}</text>
+  </view>
+
+  <!-- ① 计数器：演示 setData 更新视图 -->
+  <view class="card">
+    <view class="card-title">① 计数器（setData 更新视图）</view>
+    <view class="counter">
+      <text class="count-num">{{count}}</text>
+    </view>
+    <view class="btn-row">
+      <button class="btn" size="mini" bindtap="onDecrement">- 1</button>
+      <button class="btn primary" size="mini" bindtap="onIncrement">+ 1</button>
+      <button class="btn" size="mini" bindtap="onReset">重置</button>
+    </view>
+    <view class="tip">改要显示的数据必须 setData，直接 this.data.count++ 不会更新视图</view>
+    <button class="btn danger" size="mini" bindtap="onWrongWay">试试直接改 this.data（视图不变）</button>
+  </view>
+
+  <!-- ② 数据路径更新对象：只更新 user 的某个字段 -->
+  <view class="card">
+    <view class="card-title">② 数据路径更新对象 user.xxx</view>
+    <view class="kv"><text class="k">name</text><text class="v">{{user.name}}</text></view>
+    <view class="kv"><text class="k">age</text><text class="v">{{user.age}}</text></view>
+    <view class="btn-row">
+      <button class="btn" size="mini" bindtap="onChangeName">setData('user.name')</button>
+      <button class="btn" size="mini" bindtap="onGrowUp">setData('user.age')</button>
+    </view>
+    <view class="tip">只传变化字段，不整包 setData 整个对象</view>
+  </view>
+
+  <!-- ③ 数据路径更新数组：只更新某一项 list[i].done -->
+  <view class="card">
+    <view class="card-title">③ 数据路径更新数组 list[i].xxx</view>
+    <view class="todo" wx:for="{{list}}" wx:key="id" data-index="{{index}}" bindtap="onToggle">
+      <text class="todo-check {{item.done ? 'checked' : ''}}">{{item.done ? '✓' : '○'}}</text>
+      <text class="todo-title {{item.done ? 'done' : ''}}">{{item.title}}</text>
+      <text class="todo-idx">list[{{index}}]</text>
+    </view>
+    <button class="btn primary" size="mini" bindtap="onAppend">数据路径新增一项 list[len]</button>
+    <view class="tip">点某项切换完成态，只 setData 那一项的 done，不传整个数组</view>
+  </view>
+
+  <!-- 生命周期 & 优化说明 -->
+  <view class="card">
+    <view class="card-title">④ 生命周期 & setData 优化</view>
+    <view class="note">生命周期打印顺序请看控制台：onLoad → onShow → onReady</view>
+    <view class="note">优化五连：①只 set 最小变化数据 ②合并/节流降频率 ③数据路径更新某项 ④避免一次传大数据 ⑤不上屏的数据放 this</view>
+  </view>
+
+</view>

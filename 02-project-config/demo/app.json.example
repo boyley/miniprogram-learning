@@ -1,0 +1,21 @@
+{
+  "// 说明": "app.json 全局配置完整示例（详见本目录 README）",
+  "pages": [ "pages/home/index", "pages/list/index" ],
+  "window": {
+    "navigationBarTitleText": "我的小程序",
+    "navigationBarBackgroundColor": "#07c160",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f4f4f4",
+    "enablePullDownRefresh": false
+  },
+  "tabBar": {
+    "color": "#999", "selectedColor": "#07c160",
+    "list": [
+      { "pagePath": "pages/home/index", "text": "首页", "iconPath": "img/home.png", "selectedIconPath": "img/home_on.png" },
+      { "pagePath": "pages/list/index", "text": "列表", "iconPath": "img/list.png", "selectedIconPath": "img/list_on.png" }
+    ]
+  },
+  "usingComponents": {},
+  "permission": { "scope.userLocation": { "desc": "你的位置将用于附近推荐" } },
+  "sitemapLocation": "sitemap.json"
+}

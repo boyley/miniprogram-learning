@@ -1,0 +1,77 @@
+/* index.wxss：样式，相当于 CSS。单位用 rpx（750rpx = 屏幕宽，自动适配） */
+
+.page {
+  padding: 40rpx;
+  min-height: 100vh;
+  box-sizing: border-box;
+  background: #f5f6f8;
+}
+
+/* 展示 message 的卡片 */
+.card {
+  background: #ffffff;
+  border-radius: 20rpx;
+  padding: 40rpx;
+  margin-bottom: 40rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.06);
+}
+
+.label {
+  font-size: 26rpx;
+  color: #999999;
+  margin-bottom: 16rpx;
+}
+
+.message {
+  font-size: 44rpx;
+  font-weight: 600;
+  color: #07c160; /* 微信绿 */
+}
+
+/* 按钮 */
+.btn {
+  margin-bottom: 24rpx;
+  font-size: 30rpx;
+  border-radius: 16rpx;
+}
+
+.btn-primary {
+  background: #07c160;
+  color: #ffffff;
+}
+
+.btn-danger {
+  background: #ffffff;
+  color: #fa5151;
+  border: 2rpx solid #fa5151;
+}
+
+/* 说明区 */
+.tip {
+  display: flex;
+  flex-direction: column;
+  background: #fff8e6;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-top: 16rpx;
+}
+
+.tip-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #d48806;
+  margin-bottom: 16rpx;
+}
+
+.tip-line {
+  font-size: 26rpx;
+  color: #8c6d1f;
+  line-height: 1.8;
+}
+
+.count {
+  margin-top: 40rpx;
+  text-align: center;
+  font-size: 26rpx;
+  color: #bbbbbb;
+}

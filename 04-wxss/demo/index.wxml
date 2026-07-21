@@ -1,0 +1,80 @@
+<!-- index.wxml：WXSS 核心演示（rpx / flex / class vs 动态 style / 常用属性） -->
+<!-- 页面所有色条、按钮的主题色都来自 data.themeColor，用 style="{{}}" 动态绑定 -->
+<view class="page">
+
+  <!-- ========== 区块 1：rpx 响应式单位 ========== -->
+  <view class="section">
+    <view class="section__title" style="color: {{themeColor}};">① rpx 响应式单位</view>
+    <view class="section__tip">屏幕宽永远 = 750rpx，写多少 rpx 就占屏宽的多少分之 750</view>
+
+    <!-- 三个不同 rpx 宽度的盒子：150 / 375(半屏) / 750(满屏) -->
+    <view class="rpx-box" style="width: 150rpx; background: {{themeColor}};">150rpx</view>
+    <view class="rpx-box" style="width: 375rpx; background: {{themeColor}};">375rpx（半屏）</view>
+    <view class="rpx-box" style="width: 750rpx; background: {{themeColor}};">750rpx（满屏）</view>
+  </view>
+
+  <!-- ========== 区块 2：Flex 布局 ========== -->
+  <view class="section">
+    <view class="section__title" style="color: {{themeColor}};">② Flex 布局</view>
+
+    <!-- 2.1 横向排列（默认 row） -->
+    <view class="section__tip">横向排列 flex-direction: row</view>
+    <view class="flex-row">
+      <view class="flex-item">A</view>
+      <view class="flex-item">B</view>
+      <view class="flex-item">C</view>
+    </view>
+
+    <!-- 2.2 水平垂直居中 -->
+    <view class="section__tip">居中 justify-content + align-items: center</view>
+    <view class="flex-center">
+      <view class="flex-item">居中</view>
+    </view>
+
+    <!-- 2.3 两端对齐 -->
+    <view class="section__tip">两端对齐 justify-content: space-between</view>
+    <view class="flex-between">
+      <view class="flex-item">左</view>
+      <view class="flex-item">中</view>
+      <view class="flex-item">右</view>
+    </view>
+
+    <!-- 2.4 纵向排列 -->
+    <view class="section__tip">纵向排列 flex-direction: column</view>
+    <view class="flex-col">
+      <view class="flex-item">上</view>
+      <view class="flex-item">下</view>
+    </view>
+  </view>
+
+  <!-- ========== 区块 3：class vs 动态内联 style ========== -->
+  <view class="section">
+    <view class="section__title" style="color: {{themeColor}};">③ class vs 动态 style</view>
+    <view class="section__tip">静态样式走 class；随数据变化的颜色/尺寸走 style="{{}}"</view>
+
+    <!-- 静态样式：class 写死；动态样式：style 绑 data -->
+    <view
+      class="demo-card"
+      style="background: {{themeColor}}; width: {{boxSize}}rpx; height: {{boxSize}}rpx;"
+    >
+      <text class="demo-card__text">动态盒子 {{boxSize}}rpx</text>
+    </view>
+  </view>
+
+  <!-- ========== 区块 4：常用属性 ========== -->
+  <view class="section">
+    <view class="section__title" style="color: {{themeColor}};">④ 常用属性</view>
+    <view class="section__tip">圆角 / 边框 / 背景 / padding</view>
+    <view class="prop-box" style="border-color: {{themeColor}};">
+      圆角 16rpx · 2rpx 边框 · padding 24rpx
+    </view>
+  </view>
+
+  <!-- ========== 控制按钮：动态改主题色 / 尺寸 ========== -->
+  <view class="controls">
+    <button class="btn" style="background: {{themeColor}};" bindtap="switchTheme">切换主题色</button>
+    <button class="btn btn--plain" style="border-color: {{themeColor}}; color: {{themeColor}};" bindtap="grow">放大盒子</button>
+    <button class="btn btn--plain" style="border-color: {{themeColor}}; color: {{themeColor}};" bindtap="shrink">缩小盒子</button>
+  </view>
+
+</view>

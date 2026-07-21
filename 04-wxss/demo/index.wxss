@@ -1,0 +1,134 @@
+/* index.wxss：尺寸用 rpx 自动适配屏宽；布局用 flex（和 CSS 完全一致） */
+
+/* page 是小程序根节点，类似 body */
+page {
+  background: #f5f5f5;
+}
+
+.page {
+  padding: 24rpx;
+}
+
+/* ---------- 通用区块卡片 ---------- */
+.section {
+  background: #fff;
+  border-radius: 16rpx;      /* 圆角用 rpx，等比缩放 */
+  padding: 24rpx;
+  margin-bottom: 24rpx;
+}
+
+.section__title {
+  font-size: 34rpx;          /* 字号也用 rpx */
+  font-weight: bold;
+  margin-bottom: 12rpx;
+}
+
+.section__tip {
+  font-size: 24rpx;
+  color: #999;
+  margin: 16rpx 0 12rpx;
+}
+
+/* ---------- ① rpx 盒子 ---------- */
+.rpx-box {
+  height: 60rpx;
+  margin-bottom: 12rpx;
+  border-radius: 8rpx;
+  color: #fff;
+  font-size: 22rpx;
+  /* 用 flex 让文字在盒子里居中 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- ② Flex 布局 ---------- */
+/* 公共子项样式 */
+.flex-item {
+  width: 100rpx;
+  height: 80rpx;
+  background: #eef3ff;
+  border-radius: 8rpx;
+  color: #555;
+  font-size: 26rpx;
+  /* 子项内部也用 flex 居中文字 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 横向排列（flex 默认方向就是 row） */
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  gap: 16rpx;                /* 子项间距 */
+}
+
+/* 水平垂直居中 */
+.flex-center {
+  display: flex;
+  justify-content: center;   /* 主轴（横向）居中 */
+  align-items: center;       /* 交叉轴（纵向）居中 */
+  height: 140rpx;
+  background: #fafafa;
+  border-radius: 8rpx;
+}
+
+/* 两端对齐：首尾贴边，剩余空间均分到中间 */
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* 纵向排列 */
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+/* ---------- ③ class vs 动态 style ---------- */
+/* class 负责静态样式；宽高/背景色由 wxml 里的 style="{{}}" 动态覆盖 */
+.demo-card {
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;      /* 尺寸/颜色变化时平滑过渡 */
+}
+
+.demo-card__text {
+  color: #fff;
+  font-size: 24rpx;
+  text-align: center;
+}
+
+/* ---------- ④ 常用属性演示 ---------- */
+.prop-box {
+  padding: 24rpx;                    /* 内边距 */
+  border-radius: 16rpx;              /* 圆角 */
+  border: 2rpx solid #ccc;           /* 边框（颜色由内联 style 动态覆盖） */
+  background: linear-gradient(135deg, #f0f4ff, #fff);  /* 背景渐变 */
+  font-size: 26rpx;
+  color: #555;
+}
+
+/* ---------- 控制按钮 ---------- */
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  margin-top: 8rpx;
+}
+
+.btn {
+  color: #fff;
+  font-size: 30rpx;
+  border-radius: 12rpx;
+}
+
+/* 描边按钮：透明底 + 主题色边框（边框色/字色由内联 style 给） */
+.btn--plain {
+  background: #fff;
+  border: 2rpx solid;
+}

@@ -1,0 +1,69 @@
+<!--12-payment/demo/index.wxml
+  微信支付流程演示（模拟版）
+  真实支付需要：已认证小程序 + 商户号(mch_id) + 后端统一下单&签名。
+  本 demo 只演示「前端这一半」的代码结构与流程，参数是假的，
+  在开发者工具里点支付会报参数错误——这是正常的，重点看流程。
+-->
+<view class="page">
+
+  <!-- 顶部说明 -->
+  <view class="hero">
+    <view class="hero-title">微信支付流程演示</view>
+    <view class="hero-sub">模拟版 · 前端只负责「拉起收银台」</view>
+  </view>
+
+  <!-- 流程图：用文字/注释画出四方接力 -->
+  <view class="card">
+    <view class="card-title">🔗 完整流程（四方接力）</view>
+    <view class="flow">
+      <text class="flow-line">① 用户点「立即支付」</text>
+      <text class="flow-arrow">↓</text>
+      <text class="flow-line">② 前端调<text class="hl">后端下单接口</text></text>
+      <text class="flow-arrow">↓</text>
+      <text class="flow-line">③ 后端调微信<text class="hl">统一下单</text> → 拿 prepay_id</text>
+      <text class="flow-arrow">↓</text>
+      <text class="flow-line">④ 后端用<text class="hl">商户密钥签名</text> → 生成 5 件套参数</text>
+      <text class="flow-arrow">↓</text>
+      <text class="flow-line">⑤ 前端 <text class="hl">wx.requestPayment(参数)</text> 拉起收银台</text>
+      <text class="flow-arrow">↓</text>
+      <text class="flow-line">⑥ 用户输密码/指纹支付</text>
+      <text class="flow-arrow">↓</text>
+      <text class="flow-line">⑦ 微信<text class="hl danger">异步 notify 回调后端</text>（钱到账的唯一权威信号）</text>
+      <text class="flow-arrow">↓</text>
+      <text class="flow-line">⑧ 前端主动查订单状态，按后端库里的真实状态展示</text>
+    </view>
+  </view>
+
+  <!-- 支付参数 5 件套（模拟展示） -->
+  <view class="card">
+    <view class="card-title">🧩 支付参数 5 件套（后端签名生成）</view>
+    <view class="param-tip">下面是<text class="hl">模拟</text>参数，真实值必须由后端统一下单+签名返回，前端拿不到商户密钥：</view>
+    <view class="param" wx:for="{{payParams}}" wx:key="k">
+      <text class="param-k">{{item.k}}</text>
+      <text class="param-v">{{item.v}}</text>
+    </view>
+  </view>
+
+  <!-- 立即支付按钮 -->
+  <button class="pay-btn" bindtap="pay" loading="{{paying}}">立即支付 ¥1.00</button>
+  <view class="btn-note">点击会调 wx.requestPayment（模拟参数），开发者工具报参数错误属正常</view>
+
+  <!-- 结果展示 -->
+  <view class="result {{result.type}}" wx:if="{{result.show}}">
+    <view class="result-title">{{result.title}}</view>
+    <view class="result-msg">{{result.msg}}</view>
+    <view class="result-warn" wx:if="{{result.type === 'success'}}">
+      ⚠️ 前端 success 只代表「用户点了支付」，是否真的到账<text class="hl danger">以后端异步 notify 回调为准</text>，
+      所以这里还要再向后端查一次真实订单状态。
+    </view>
+  </view>
+
+  <!-- 关键提醒 -->
+  <view class="tips">
+    <view class="tips-title">🔑 记住三句话</view>
+    <view class="tip">1. 商户密钥 + 签名 + 验签 全在<text class="hl">后端</text>，绝不进前端。</view>
+    <view class="tip">2. 金额 total 由<text class="hl">后端从数据库取</text>（单位：分），不信前端传的钱。</view>
+    <view class="tip">3. 发货/加余额只在 <text class="hl danger">notify 回调</text>里做，只信前端 success = 重大漏洞。</view>
+  </view>
+
+</view>

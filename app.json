@@ -1,0 +1,25 @@
+{
+  "pages": [
+    "pages/home/index",
+    "01-overview-architecture/demo/index",
+    "03-wxml/demo/index",
+    "04-wxss/demo/index",
+    "05-logic-setdata/demo/index",
+    "06-events/demo/index",
+    "07-component/demo/index",
+    "08-routing-lifecycle/demo/index",
+    "08-routing-lifecycle/demo/detail",
+    "09-network-storage/demo/index",
+    "10-apis/demo/index",
+    "11-login-auth/demo/index",
+    "12-payment/demo/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "小程序学习 Demo 集",
+    "navigationBarBackgroundColor": "#07c160",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f4f4f4"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

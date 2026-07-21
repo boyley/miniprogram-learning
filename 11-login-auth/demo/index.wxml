@@ -1,0 +1,48 @@
+<!-- 11 登录授权 · 微信登录流程演示（前端部分，后端用注释/模拟） -->
+<view class="page">
+
+  <!-- 登录态展示：token 是否已存 -->
+  <view class="status {{token ? 'ok' : 'no'}}">
+    <text wx:if="{{token}}">✅ 已登录，token：{{tokenShort}}</text>
+    <text wx:else>⛔ 未登录（还没拿到后端签发的 token）</text>
+  </view>
+
+  <!-- ① 微信登录：wx.login 拿 code -->
+  <view class="card">
+    <view class="title">① 微信登录（wx.login 拿 code）</view>
+    <view class="desc">静默拿一次性 code → 发后端换 openid+token</view>
+    <button type="primary" bindtap="doLogin">微信登录</button>
+    <view wx:if="{{code}}" class="result">
+      <view class="line">拿到 code：<text class="mono">{{code}}</text></view>
+      <view class="hint">这个 code 要发给后端，后端用 code+AppSecret 调 code2Session 换 openid+session_key，再签发 token 回来</view>
+    </view>
+  </view>
+
+  <!-- ② 获取用户信息：wx.getUserProfile（必须点击触发） -->
+  <view class="card">
+    <view class="title">② 获取用户信息（wx.getUserProfile）</view>
+    <view class="desc">必须由用户点击触发，不能静默/onLoad 里调</view>
+    <button type="default" bindtap="getProfile">获取用户信息</button>
+    <view wx:if="{{userInfo}}" class="result profile">
+      <image class="avatar" src="{{userInfo.avatarUrl}}" mode="aspectFill" />
+      <view class="nick">{{userInfo.nickName}}</view>
+    </view>
+  </view>
+
+  <!-- ③ 获取手机号：button open-type，回调拿密文 -->
+  <view class="card">
+    <view class="title">③ 获取手机号（open-type="getPhoneNumber"）</view>
+    <view class="desc">必须 button 点击触发，前端只拿到密文/code，后端用 session_key 解密</view>
+    <button type="default" open-type="getPhoneNumber" bindgetphonenumber="onPhone">
+      微信手机号一键授权
+    </button>
+    <view wx:if="{{phoneCipher}}" class="result">
+      <view class="line">拿到密文/凭证：<text class="mono">{{phoneCipher}}</text></view>
+      <view class="hint">前端拿到的是密文，解不开；发后端用 session_key 解出真实手机号</view>
+    </view>
+  </view>
+
+  <!-- 退出登录：清 token 演示 -->
+  <button wx:if="{{token}}" class="logout" type="warn" size="mini" bindtap="logout">退出登录（清 token）</button>
+
+</view>

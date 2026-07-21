@@ -1,0 +1,41 @@
+<!-- index.wxml —— 列表页 -->
+<view class="page">
+  <view class="title">08 · 路由与生命周期 Demo（列表页）</view>
+  <view class="tip">打开控制台观察生命周期打印：onLoad → onShow → onReady</view>
+
+  <!-- 路由 API 按钮组 -->
+  <view class="section">
+    <view class="section-title">路由跳转 API</view>
+
+    <!-- navigateTo：压栈打开详情，能返回 -->
+    <button class="btn primary" bindtap="goDetailByNavigate">
+      navigateTo 跳详情（带 ?id=1&name=小明·能返回）
+    </button>
+
+    <!-- redirectTo：替换当前页，不能返回 -->
+    <button class="btn warn" bindtap="goDetailByRedirect">
+      redirectTo 跳详情（替换本页·不能返回）
+    </button>
+
+    <!-- navigateBack：返回上一页 -->
+    <button class="btn plain" bindtap="goBack">
+      navigateBack 返回上一页
+    </button>
+  </view>
+
+  <!-- 列表：点击项跳详情并传参 -->
+  <view class="section">
+    <view class="section-title">点列表项跳详情（传参）</view>
+    <view
+      class="item"
+      wx:for="{{list}}"
+      wx:key="id"
+      data-id="{{item.id}}"
+      data-name="{{item.name}}"
+      bindtap="onTapItem"
+    >
+      <text>#{{item.id}} · {{item.name}}</text>
+      <text class="arrow">›</text>
+    </view>
+  </view>
+</view>

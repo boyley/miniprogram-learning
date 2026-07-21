@@ -1,0 +1,9 @@
+<!-- 首页：各知识点 demo 导航（数据绑定 + wx:for + navigator，详见 03-wxml / 08-routing） -->
+<view class="card">
+  <view class="title">📚 小程序知识点 Demo 集</view>
+  <text>点下面任意一项，进入对应知识点的可运行 demo。</text>
+</view>
+<navigator wx:for="{{demos}}" wx:key="path" url="{{item.path}}" class="card">
+  <text class="title">{{item.no}} · {{item.name}}</text>
+  <text style="color:#888">{{item.desc}}</text>
+</navigator>

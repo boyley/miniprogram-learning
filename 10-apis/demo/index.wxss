@@ -1,0 +1,59 @@
+/* 常用 API 演示样式 */
+.page {
+  padding: 24rpx;
+  background: #f5f6f8;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.title {
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #333;
+  margin: 12rpx 0 24rpx;
+}
+
+/* 分组卡片 */
+.group {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 20rpx 24rpx;
+  margin-bottom: 24rpx;
+}
+
+.group-title {
+  font-size: 26rpx;
+  color: #888;
+  margin-bottom: 16rpx;
+}
+
+/* 按钮 */
+.btn {
+  margin: 12rpx 0;
+  font-size: 28rpx;
+  background: #07c160;
+  color: #fff;
+}
+.btn::after { border: none; }
+
+/* 结果展示区 */
+.result-box {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-top: 8rpx;
+}
+
+.result-title {
+  font-size: 26rpx;
+  color: #888;
+  margin-bottom: 12rpx;
+}
+
+.result-text {
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.6;
+  word-break: break-all;
+  white-space: pre-wrap; /* 保留换行，系统信息多行显示 */
+}

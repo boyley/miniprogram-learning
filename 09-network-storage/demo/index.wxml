@@ -1,0 +1,65 @@
+<!-- 09 网络请求 + 本地存储演示 -->
+<view class="page">
+
+  <!-- ==================== 一、网络请求 ==================== -->
+  <view class="card">
+    <view class="card-title">① 网络请求 wx.request</view>
+    <view class="tip">
+      点按钮请求公开测试 API，success 里 setData 把结果显示出来。
+      开发者工具需勾选「不校验合法域名」，否则请求会失败。
+    </view>
+
+    <button class="btn primary" bindtap="onRequest">发起请求</button>
+
+    <!-- 请求结果：拿到数据才显示 -->
+    <view class="result" wx:if="{{result}}">
+      <view class="result-title">返回数据（res.data）：</view>
+      <!-- 用 JSON.stringify 后的字符串展示，方便看结构 -->
+      <text class="result-text">{{result}}</text>
+    </view>
+  </view>
+
+  <!-- ==================== 二、本地存储 ==================== -->
+  <view class="card">
+    <view class="card-title">② 本地存储 Storage</view>
+    <view class="tip">
+      setStorageSync 存 / getStorageSync 读 / removeStorageSync 删，
+      key 固定为 <text class="code">demo_text</text>。
+    </view>
+
+    <!-- 输入框：双向绑定到 data.input -->
+    <input
+      class="input"
+      placeholder="输入要保存的内容"
+      value="{{input}}"
+      bindinput="onInput"
+    />
+
+    <view class="btn-row">
+      <button class="btn" size="mini" bindtap="onSave">保存</button>
+      <button class="btn" size="mini" bindtap="onRead">读取</button>
+      <button class="btn danger" size="mini" bindtap="onClear">清除</button>
+    </view>
+
+    <!-- 读取结果 -->
+    <view class="result" wx:if="{{storageValue !== ''}}">
+      <view class="result-title">读取到的值：</view>
+      <text class="result-text">{{storageValue}}</text>
+    </view>
+  </view>
+
+  <!-- ==================== 三、登录态思路 ==================== -->
+  <view class="card">
+    <view class="card-title">③ 登录态思路（演示）</view>
+    <view class="tip">
+      点击模拟登录：把 token 存进 storage；下次请求在 header 带上它。
+      详见 index.js 注释与 README。
+    </view>
+    <button class="btn primary" bindtap="onMockLogin">模拟登录（存 token）</button>
+    <view class="result" wx:if="{{token}}">
+      <view class="result-title">当前 token：</view>
+      <text class="result-text">{{token}}</text>
+    </view>
+  </view>
+
+</view>

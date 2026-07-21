@@ -1,0 +1,28 @@
+<!-- index.wxml：渲染层（View）结构，相当于 HTML 模板 -->
+<!-- 核心：{{message}} 是数据绑定，逻辑层 data 里的值会被渲染到这里 -->
+<!-- 事件用 bindtap 而不是 onclick；点击事件由渲染层经 Native 回调给逻辑层 -->
+<view class="page">
+
+  <view class="card">
+    <view class="label">当前 message（来自逻辑层 data）：</view>
+    <!-- 数据绑定：逻辑层 setData 后，这里的文本会自动刷新 -->
+    <text class="message">{{message}}</text>
+  </view>
+
+  <!-- 点击这个按钮 → 触发逻辑层的 onTap → setData → 视图更新 -->
+  <button class="btn btn-primary" bindtap="onTap">✅ 正确：用 setData 改文本</button>
+
+  <!-- 点击这个演示"直接改 data 不刷新"的错误做法 -->
+  <button class="btn btn-danger" bindtap="onWrongTap">❌ 错误：直接改 this.data</button>
+
+  <view class="tip">
+    <text class="tip-title">💡 双线程核心</text>
+    <text class="tip-line">· 逻辑层（JS）和渲染层（视图）是两条独立线程</text>
+    <text class="tip-line">· 没有 document / window，不能操作 DOM</text>
+    <text class="tip-line">· 更新视图只能靠 setData，数据经 Native 中转到渲染层</text>
+    <text class="tip-line">· 点击两个按钮对比，并看 Console 打印</text>
+  </view>
+
+  <view class="count">setData 已触发次数：{{count}}</view>
+
+</view>

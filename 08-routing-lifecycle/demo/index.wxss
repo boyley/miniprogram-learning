@@ -1,0 +1,58 @@
+/* index.wxss —— 列表页样式 */
+.page {
+  padding: 32rpx;
+  background: #f5f6f8;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+.title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #222;
+}
+.tip {
+  margin: 12rpx 0 32rpx;
+  font-size: 24rpx;
+  color: #999;
+}
+.section {
+  margin-bottom: 40rpx;
+}
+.section-title {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 16rpx;
+}
+.btn {
+  margin-bottom: 20rpx;
+  font-size: 28rpx;
+}
+.btn.primary {
+  background: #07c160;
+  color: #fff;
+}
+.btn.warn {
+  background: #fa8c16;
+  color: #fff;
+}
+.btn.plain {
+  background: #fff;
+  color: #333;
+  border: 1rpx solid #ddd;
+}
+/* 列表项 */
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28rpx 24rpx;
+  background: #fff;
+  border-radius: 12rpx;
+  margin-bottom: 16rpx;
+  font-size: 30rpx;
+  color: #333;
+}
+.arrow {
+  color: #bbb;
+  font-size: 40rpx;
+}

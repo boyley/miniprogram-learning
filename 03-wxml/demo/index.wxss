@@ -1,0 +1,112 @@
+/* 03 WXML 语法演示 —— 样式层 */
+.page {
+  padding: 24rpx;
+  background: #f4f5f7;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* 卡片容器 */
+.card {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
+}
+.card-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+  padding-left: 16rpx;
+  border-left: 8rpx solid #07c160;
+}
+
+.row {
+  display: block;
+  font-size: 28rpx;
+  color: #555;
+  line-height: 2;
+}
+.tip {
+  display: block;
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 8rpx;
+}
+
+/* 属性绑定 + 三元 class */
+.badge {
+  display: inline-block;
+  margin: 12rpx 0;
+  padding: 8rpx 20rpx;
+  border-radius: 999rpx;
+  font-size: 26rpx;
+  color: #fff;
+}
+.badge-on { background: #07c160; }
+.badge-off { background: #bbb; }
+
+/* 条件渲染结果 */
+.result {
+  margin: 12rpx 0;
+  padding: 16rpx;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  text-align: center;
+}
+.good { background: #e6f9ee; color: #07c160; }
+.pass { background: #fff7e6; color: #fa8c16; }
+.fail { background: #fde8e8; color: #e64340; }
+
+/* wx:if / hidden 对比盒子 */
+.box {
+  margin: 12rpx 0;
+  padding: 16rpx;
+  border-radius: 12rpx;
+  font-size: 26rpx;
+  color: #fff;
+}
+.box-if { background: #4098fc; }
+.box-hidden { background: #9254de; }
+
+/* 列表项 */
+.item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 8rpx;
+  border-bottom: 1rpx solid #eee;
+  font-size: 28rpx;
+}
+.item .name { flex: 1; color: #333; }
+.tag {
+  font-size: 22rpx;
+  padding: 4rpx 14rpx;
+  border-radius: 999rpx;
+  background: #eee;
+  color: #999;
+  margin-right: 16rpx;
+}
+.tag.vip { background: #ffe58f; color: #ad6800; }
+.del { font-size: 22rpx; color: #e64340; }
+
+.empty {
+  text-align: center;
+  color: #999;
+  font-size: 26rpx;
+  padding: 40rpx 0;
+}
+.line {
+  display: block;
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.8;
+}
+
+/* 按钮行 */
+.btn-row {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 20rpx;
+}

@@ -1,0 +1,90 @@
+<!-- 03 WXML 核心语法全演示 -->
+<view class="page">
+
+  <!-- ========== 1. 数据绑定 {{ }} ========== -->
+  <view class="card">
+    <view class="card-title">1. 数据绑定 {{ }}</view>
+
+    <!-- 文本插值 -->
+    <text class="row">文本插值：{{ title }}</text>
+
+    <!-- 运算：加减、字符串拼接 -->
+    <text class="row">运算：{{ a }} + {{ b }} = {{ a + b }}</text>
+
+    <!-- 三元表达式 + 属性绑定（class 用 {{}}，无 : 前缀） -->
+    <view class="badge {{ show ? 'badge-on' : 'badge-off' }}">
+      属性绑定 + 三元：开关现在是 {{ show ? '开' : '关' }}
+    </view>
+
+    <!-- 布尔属性必须用 {{}} 包，否则字符串 "false" 是真值 -->
+    <checkbox checked="{{ show }}" disabled />
+    <text class="tip">checkbox 的 checked 跟随 show（布尔属性要用 {{}}）</text>
+  </view>
+
+  <!-- ========== 2. 条件渲染 wx:if / wx:elif / wx:else ========== -->
+  <view class="card">
+    <view class="card-title">2. 条件渲染 wx:if / wx:elif / wx:else</view>
+    <text class="row">当前分数 count = {{ count }}</text>
+    <view wx:if="{{ count >= 90 }}" class="result good">优秀（count ≥ 90）</view>
+    <view wx:elif="{{ count >= 60 }}" class="result pass">及格（60 ≤ count < 90）</view>
+    <view wx:else class="result fail">不及格（count < 60）</view>
+
+    <view class="btn-row">
+      <button size="mini" type="primary" bindtap="addCount">+15</button>
+      <button size="mini" bindtap="minusCount">-15</button>
+    </view>
+  </view>
+
+  <!-- ========== 3. wx:if vs hidden 对比 ========== -->
+  <view class="card">
+    <view class="card-title">3. wx:if vs hidden（同一开关 show 控制）</view>
+
+    <!-- wx:if：条件为假时不渲染节点 -->
+    <view wx:if="{{ show }}" class="box box-if">wx:if：show 为真才渲染（假时节点不存在）</view>
+
+    <!-- hidden：节点常驻，只切 display -->
+    <view hidden="{{ !show }}" class="box box-hidden">hidden：节点常驻，只切 display:none</view>
+
+    <button size="mini" type="warn" bindtap="toggleShow">切换开关 show</button>
+  </view>
+
+  <!-- ========== 4. 列表渲染 wx:for + wx:key ========== -->
+  <view class="card">
+    <view class="card-title">4. 列表渲染 wx:for（共 {{ list.length }} 条）</view>
+
+    <!-- 空状态 -->
+    <view wx:if="{{ list.length === 0 }}" class="empty">暂无数据，点下方按钮添加</view>
+
+    <!-- wx:for 默认 item/index；此处用 wx:for-item 改名为 stu -->
+    <view
+      wx:for="{{ list }}"
+      wx:for-item="stu"
+      wx:for-index="idx"
+      wx:key="id"
+      class="item"
+      bindtap="removeItem"
+      data-id="{{ stu.id }}"
+    >
+      <text class="name">{{ idx + 1 }}. {{ stu.name }}</text>
+      <!-- 行内再来一次条件渲染 -->
+      <text wx:if="{{ stu.vip }}" class="tag vip">VIP</text>
+      <text wx:else class="tag">普通</text>
+      <text class="del">点击删除 ✕</text>
+    </view>
+
+    <view class="btn-row">
+      <button size="mini" type="primary" bindtap="addItem">添加一项</button>
+      <button size="mini" bindtap="resetList">重置列表</button>
+    </view>
+  </view>
+
+  <!-- ========== 5. block 包裹（不渲染真实节点） ========== -->
+  <view class="card">
+    <view class="card-title">5. block 包裹（≈ Vue template，不产生额外节点）</view>
+    <block wx:for="{{ list }}" wx:key="id">
+      <text class="line">· {{ item.name }}</text>
+    </block>
+    <text class="tip">用 block 给一组元素套 wx:for，不额外产生 view</text>
+  </view>
+
+</view>

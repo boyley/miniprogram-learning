@@ -1,0 +1,75 @@
+<!-- 06 事件系统全演示：冒泡/阻止冒泡 + dataset 传参 + bindinput + target/currentTarget -->
+<view class="page">
+
+  <!-- ===== 1. bindtap vs catchtap（冒泡 vs 阻止冒泡）===== -->
+  <view class="section">
+    <view class="title">1️⃣ 冒泡 vs 阻止冒泡</view>
+    <view class="tip">点「内层」看外层是否被顺带触发</view>
+
+    <!-- 外层：bindtap 正常绑定，会接收冒泡上来的点击 -->
+    <view class="outer" bindtap="onOuterTap">
+      外层 view（bindtap）
+      <!-- 内层 A：bindtap → 点击后会继续冒泡到外层 -->
+      <view class="inner bind" bindtap="onInnerBind">
+        内层 A：bindtap（会冒泡 ↑）
+      </view>
+      <!-- 内层 B：catchtap → 阻止冒泡，外层不会被触发 -->
+      <view class="inner catch" catchtap="onInnerCatch">
+        内层 B：catchtap（阻止冒泡 ✋）
+      </view>
+    </view>
+
+    <view class="result">冒泡日志：{{bubbleLog}}</view>
+  </view>
+
+  <!-- ===== 2. dataset 传参（点列表项拿到 id）===== -->
+  <view class="section">
+    <view class="title">2️⃣ dataset 传参</view>
+    <view class="tip">点任意水果，从 currentTarget.dataset 取 id / name</view>
+
+    <view
+      class="row"
+      wx:for="{{fruits}}"
+      wx:key="id"
+      data-id="{{item.id}}"
+      data-name="{{item.name}}"
+      bindtap="onRowTap"
+    >
+      <text>{{item.name}}</text>
+      <text class="row-id">id={{item.id}}</text>
+    </view>
+
+    <view class="result">选中：{{picked}}</view>
+  </view>
+
+  <!-- ===== 3. bindinput 实时取值 ===== -->
+  <view class="section">
+    <view class="title">3️⃣ bindinput 实时取值</view>
+    <view class="tip">输入时从 e.detail.value 拿值并 setData 回填</view>
+
+    <input
+      class="input"
+      placeholder="随便输点字…"
+      value="{{keyword}}"
+      bindinput="onInput"
+    />
+    <view class="result">实时输入：{{keyword}}（{{keyword.length}} 字）</view>
+  </view>
+
+  <!-- ===== 4. e.target vs e.currentTarget ===== -->
+  <view class="section">
+    <view class="title">4️⃣ target vs currentTarget</view>
+    <view class="tip">点「子文字」区，看两者 dataset 差异（打开控制台看完整对比）</view>
+
+    <!-- 只有外层 view 写了 data-role 与 bindtap；子 text 没写 data-* -->
+    <view class="tc-box" data-role="parent" bindtap="onCompareTap">
+      外层容器（绑定处理函数 & data-role=parent）
+      <text class="tc-child">👉 点我这段子文字</text>
+    </view>
+
+    <view class="result">
+      target.role = {{targetRole}}｜currentTarget.role = {{currentRole}}
+    </view>
+  </view>
+
+</view>

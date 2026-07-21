@@ -1,0 +1,17 @@
+/* index.wxss：父页面样式 */
+.page {
+  padding: 24rpx;
+}
+.hint {
+  font-size: 26rpx;
+  color: #999;
+  margin-bottom: 16rpx;
+}
+.result {
+  margin-top: 20rpx;
+  padding: 20rpx;
+  font-size: 28rpx;
+  color: #07c160;
+  background: #f6fff9;
+  border-radius: 12rpx;
+}

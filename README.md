@@ -3,6 +3,9 @@
 > 系统学小程序开发：**微信小程序（主线）+ 抖音/字节小程序 + 跨端框架(uni-app/Taro)**。面向有 Web 基础者，概念讲清 + 代码可跑。
 > 权威对标：**[微信官方文档](https://developers.weixin.qq.com/miniprogram/dev/framework/)** + 抖音开放平台 + uni-app/Taro 官方。规范见 [`_CONVENTIONS.md`](./_CONVENTIONS.md)。
 
+
+> ▶️ **如何运行 demo**：本仓库本身就是一个可运行的小程序工程。用**微信开发者工具**导入本目录（AppID 选"测试号"）→ 打开即见首页，点任意知识点进入其 demo。各知识点的 demo 代码在 `NN-xxx/demo/` 下（页面四件套 wxml/wxss/js/json）。`09` 网络请求需在工具里勾"不校验合法域名"。
+
 ---
 
 ## 零、小程序开发和 Web 开发有什么不一样？（有 Web 基础必读）

@@ -1,0 +1,11 @@
+{
+  "// 说明": "app.json 里的分包配置示例：主包只放核心，其它拆分包按需下载",
+  "pages": [ "pages/home/index" ],
+  "subpackages": [
+    { "root": "packageUser", "name": "user", "pages": [ "pages/profile/index", "pages/settings/index" ] },
+    { "root": "packageOrder", "name": "order", "pages": [ "pages/list/index", "pages/detail/index" ] }
+  ],
+  "preloadRule": {
+    "pages/home/index": { "network": "wifi", "packages": [ "user" ] }
+  }
+}

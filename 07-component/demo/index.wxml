@@ -1,0 +1,14 @@
+<!-- index.wxml：使用自定义组件 counter -->
+<view class="page">
+  <view class="hint">父子通信演示：properties(父→子) + triggerEvent(子→父) + slot</view>
+
+  <!-- title/step 传值(父→子)；bind:change 收子组件事件(子→父)；标签内内容进 slot -->
+  <counter title="计数器A" step="2" bind:change="onChange">
+    插槽内容：我来自父页面
+  </counter>
+
+  <!-- 展示父组件收到的事件数据 -->
+  <view class="result">
+    父组件收到的 change 事件：count = {{lastCount}}
+  </view>
+</view>

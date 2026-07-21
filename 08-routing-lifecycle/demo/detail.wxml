@@ -1,0 +1,20 @@
+<!-- detail.wxml —— 详情页 -->
+<view class="page">
+  <view class="title">08 · 详情页</view>
+  <view class="tip">下面的数据来自上一页 url 的 query 参数（onLoad 取到）</view>
+
+  <!-- 展示 onLoad 收到的参数 -->
+  <view class="card">
+    <view class="row">
+      <text class="label">id</text>
+      <text class="value">{{id}}</text>
+    </view>
+    <view class="row">
+      <text class="label">name</text>
+      <text class="value">{{name}}</text>
+    </view>
+  </view>
+
+  <!-- navigateBack 返回 -->
+  <button class="btn" bindtap="goBack">navigateBack 返回上一页</button>
+</view>

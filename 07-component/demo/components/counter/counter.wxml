@@ -1,0 +1,14 @@
+<!-- counter.wxml：properties 直接用 {{}}；slot 分发父标签内部内容 -->
+<view class="card">
+  <view class="title">{{title}}</view>
+  <view class="count">当前计数：{{count}}（步长 {{step}}）</view>
+
+  <!-- 默认插槽：父组件写在 <counter> 标签内部的内容会填到这里 -->
+  <view class="slot-box">
+    <slot></slot>
+  </view>
+
+  <button class="btn" size="mini" type="primary" bindtap="add">
+    加 {{step}}
+  </button>
+</view>

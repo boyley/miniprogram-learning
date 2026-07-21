@@ -1,0 +1,26 @@
+/* counter.wxss：默认 isolated，这里的 class 不会污染页面 */
+.card {
+  padding: 24rpx;
+  margin: 20rpx 0;
+  border: 1rpx solid #eee;
+  border-radius: 16rpx;
+  background: #fff;
+}
+.title {
+  font-size: 34rpx;
+  font-weight: bold;
+  margin-bottom: 12rpx;
+}
+.count {
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 12rpx;
+}
+.slot-box {
+  font-size: 26rpx;
+  color: #888;
+  padding: 12rpx 0;
+}
+.btn {
+  margin-top: 12rpx;
+}
